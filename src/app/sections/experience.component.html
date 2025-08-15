@@ -1,0 +1,18 @@
+<section id="experience" class="section container-xl">
+    <h2 class="heading-2  text-slate-600 dark:text-slate-300/95">Professional Experience</h2>
+
+    <div class="mt-8 space-y-6">
+        <div *ngFor="let x of exp" class="card p-6">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">{{ x.role }}</h3>
+                    <p class="text-sm text-[#89a1ff]">{{ x.company }}</p>
+                </div>
+                <span class="text-sm text-slate-400">{{ x.period }}</span>
+            </div>
+            <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
+                <li *ngFor="let b of x.bullets">{{ b }}</li>
+            </ul>
+        </div>
+    </div>
+</section>

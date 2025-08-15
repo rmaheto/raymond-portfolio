@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* tokens */
+:root {
+  --bg: #0f172a;
+  /* slate-900-ish */
+  --panel: #111827;
+  /* gray-900 */
+  --muted: #cbd5e1;
+  /* slate-300 */
+  --text: #e5e7eb;
+  /* gray-200 */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Light by default, dark overrides */
+  body {
+    @apply bg-white text-slate-700 dark:bg-[var(--bg)] dark:text-slate-300;
+  }
+}
+
+@layer base {
+  .light body {
+    @apply bg-white text-slate-700;
+  }
+}
+
+@layer components {
+  .container-xl {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+
+  .heading-hero {
+    @apply font-sans text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white;
+  }
+  .heading-2 {
+    @apply text-[32px] md:text-[36px] font-extrabold text-white text-center;
+  }
+
+  .card {
+    @apply rounded-2xl bg-[#141c2d] border border-white/[.06] shadow-card-strong;
+  }
+
+  .light-card {
+    @apply rounded-2xl bg-white/90 border border-black/[.06] shadow-card-light;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-5 py-3 rounded-md border border-white/15 bg-white/0 text-slate-200 hover:bg-white/5 transition;
+  }
+
+  .pill {
+    @apply text-[13px] rounded-full px-3 py-1 bg-[#1b2540] text-[#6f88ff] border border-[#6f88ff]/25;
+  }
+
+  .light-pill {
+    @apply text-[13px] rounded-full px-3 py-1 bg-[#eaf0ff] text-[#3957ff] border border-[#3957ff]/20;
+  }
+
+  .section {
+    @apply py-20 md:py-24;
+  }
+
+  .skill-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-white bg-gradient-to-r from-[#4A5BFF] to-[#5563ff] shadow-brand-sm hover:shadow-brand-lg hover:-translate-y-px active:translate-y-0 transition;
+  }
+
+   .btn-ghost {
+       @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-base font-medium transition;
+
+       /* light (default) */
+       @apply text-slate-700 border border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900;
+
+       /* dark */
+       @apply dark:text-slate-200 dark:border-white/[0.15] dark:bg-transparent dark:hover:bg-white/[0.06] dark:hover:text-white;
+
+       /* focus ring (both) */
+       @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4452FE] dark:focus-visible:ring-offset-0;
+   }
+
+   .btn-ghost svg {
+       @apply w-5 h-5;
+   }
+}
