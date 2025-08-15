@@ -1,47 +1,36 @@
-<header
-  class="sticky top-0 z-40 backdrop-blur bg-white/80 dark:bg-[#0f172a]/75 border-b border-black/5 dark:border-white/8"
->
-  <nav class="container-xl h-12 md:h-14 flex items-center justify-between">
-    <a
-      class="text-base md:text-lg font-semibold text-slate-800 dark:text-white/90"
-      >RA</a
-    >
-    <div class="hidden md:flex gap-8 text-[14px]">
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#about"
-        >About</a
-      >
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#skills"
-        >Skills</a
-      >
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#projects"
-        >Projects</a
-      >
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#experience"
-        >Experience</a
-      >
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#certs"
-        >Certs</a
-      >
-      <a
-        class="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition"
-        href="#contact"
-        >Contact</a
-      >
-    </div>
-    <button
-      class="rounded-full p-2 border border-black/10 text-slate-700 hover:bg-black/5 dark:border-white/10 dark:text-white/80 dark:hover:bg-white/5"
-    >
-      🌙
-    </button>
-  </nav>
-</header>
+<div [class.dark]="isDark" class="min-h-screen bg-white dark:bg-[var(--bg)]">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-[#0f172a]/70 border-b border-white/5">
+    <nav class="container-xl h-14 flex items-center justify-between">
+      <a routerLink="/" class="text-lg font-semibold text-white/90">RA</a>
+
+      <div class="hidden md:flex gap-8 text-sm">
+        <a routerLink="/about" class="text-slate-300 hover:text-white/90 transition">About</a>
+        <a routerLink="/skills" class="text-slate-300 hover:text-white/90 transition">Skills</a>
+        <a routerLink="/projects" class="text-slate-300 hover:text-white/90 transition">Projects</a>
+        <a routerLink="/experience" class="text-slate-300 hover:text-white/90 transition">Experience</a>
+        <a routerLink="/certs" class="text-slate-300 hover:text-white/90 transition">Certs</a>
+        <a routerLink="/contact" class="text-slate-300 hover:text-white/90 transition">Contact</a>
+      </div>
+
+      <!-- Theme toggle -->
+      <button (click)="toggle()" aria-label="Toggle theme"
+        class="rounded-full p-2 border border-white/10 text-white/80 hover:bg-white/5">
+        <span *ngIf="!isDark">🌙</span><span *ngIf="isDark">☀️</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Router outlet -->
+  <main class="max-w-6xl mx-auto px-4">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-16 py-10 text-center text-sm text-slate-500 dark:text-[var(--muted)]">
+    © 2024 Raymond Aheto. Built with passion for clean code and great user experiences.
+  </footer>
+
+  <app-toast-container></app-toast-container>
+</div>

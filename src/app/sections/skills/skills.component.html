@@ -1,0 +1,9 @@
+<section id="skills" class="section container-xl">
+    <h2 class="heading-2 text-slate-600 dark:text-slate-300/95">Technical Skills</h2>
+    <div class="grid md:grid-cols-2 gap-8 mt-8 items-stretch">
+        <app-skill-card title="Frontend" [items]="mySkills.frontend"></app-skill-card>
+        <app-skill-card title="Backend, Services & Testing" [items]="mySkills.backend"></app-skill-card>
+        <app-skill-card title="Databases" [items]="mySkills.db"></app-skill-card>
+        <app-skill-card title="Cloud, DevOps & Tools" [items]="mySkills.devops"></app-skill-card>
+    </div>
+</section>

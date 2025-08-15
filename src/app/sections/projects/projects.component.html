@@ -1,7 +1,7 @@
 <section id="projects" class="section container-xl">
     <h2 class="heading-2  text-slate-600 dark:text-slate-300/95">Featured Projects</h2>
     <div class="grid md:grid-cols-3 gap-8 mt-8">
-        <div *ngFor="let p of ps"
+        <div *ngFor="let p of myProjects"
             class="card dark:card light:light-card p-6 h-full flex flex-col hover:translate-y-[-2px] transition">
             <h3 class="font-semibold text-white dark:text-white light:text-slate-900">{{ p.name }}</h3>
             <p class="mt-3 text-[14.5px] text-slate-300/95 leading-6 flex-1">{{ p.desc }}</p>

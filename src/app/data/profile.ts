@@ -5,14 +5,15 @@ export const profile = {
     title: 'Senior Software Engineer (Java)',
     blurb:
         'Full‑stack developer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands‑on DevOps on AWS and Jenkins.',
-    avatar: '/raymond.jpg',
-    resumeUrl: '/RAYMOND AHETO_Resume_2025.pdf', // keep your actual filename/path
+    avatar: '/assets/raymond.jpg',
+    resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
     location: 'West Des Moines, IA',
     links: {
         email: 'rmkaheto4java@gmail.com',
         phone: '515‑205‑8276',
         linkedin: 'https://www.linkedin.com/in/raymond-aheto',
-        github: 'https://github.com/raymond-aheto'
+        github: 'https://github.com/rmaheto',
+        facebook: 'https://www.facebook.com/profile.php?id=100086921498712'
     }
 };
 
@@ -153,12 +154,16 @@ export const experience = [
 
 export const certifications = {
     certs: [
-        'AWS Certified Solutions Architect – Professional (2023)'
+        {
+            name: 'AWS Certified Solutions Architect – Professional (2023)',
+            badge: 'assets/aws-badge.png',
+            link: 'https://www.credly.com/badges/f79ef9cb-a06f-4692-a149-4bf286d37c51/public_url'
+        }
     ],
     education: [
         {
             name: 'Master of Science in Computer Science',
-            school: 'Maharishi International University (MIU), Fairfield, Iowa',
+            school: 'Maharishi International University (MIU), Fairfield, IA, USA',
             years: '2023'
         },
         {

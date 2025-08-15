@@ -1,0 +1,10 @@
+.badge-container iframe {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.badge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
