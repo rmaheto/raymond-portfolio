@@ -10,7 +10,7 @@ import type { ContactRequest } from '../shared/models/contact-request.model';
 })
 export class ContactService {
     private base = environment.apiBaseUrl;
-    private apiUrl = `${this.base}/api/v1/contact`; 
+    private apiUrl = '/api/v1/contact'; 
 
 
     constructor(private http: HttpClient) { }
