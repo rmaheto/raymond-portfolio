@@ -98,4 +98,22 @@ html {
    .btn-ghost svg {
        @apply w-5 h-5;
    }
+
+   /* Make reCAPTCHA responsive */
+   .recaptcha-container {
+       transform: scale(0.9);
+       transform-origin: 0 0;
+   }
+
+   @media (max-width: 768px) {
+       .recaptcha-container {
+           transform: scale(0.8);
+       }
+   }
+
+   @media (max-width: 480px) {
+       .recaptcha-container {
+           transform: scale(0.75);
+       }
+   }
 }

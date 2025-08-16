@@ -1,9 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
-import { ScrollService } from './services/ScrollService'; 
+import { ScrollService } from './services/ScrollService';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';  // ✅ import this
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     ),
     ScrollService,
     provideToastr(),
-    provideAnimations()
-
+    provideAnimations(),
+    provideHttpClient()   // ✅ add HttpClient here
   ],
 };
