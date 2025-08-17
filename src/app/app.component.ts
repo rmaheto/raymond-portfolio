@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { ToastContainerComponent } from "./shared/components/toast-container/toast-container.component";
+import { profile } from './data/profile';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { ToastContainerComponent } from "./shared/components/toast-container/toa
   templateUrl:'./app.component.html'
 })
 export class AppComponent {
+  p = profile;
   isDark = true;
 
   constructor() {

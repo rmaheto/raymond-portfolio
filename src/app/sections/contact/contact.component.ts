@@ -21,8 +21,10 @@ export class ContactComponent {
   p = profile;
   siteKey = environment.recaptcha_site_key;
   captchaToken: string | null = null;
+  loading = false; // <-- NEW
 
-  constructor(private toast: ToastService,
+  constructor(
+    private toast: ToastService,
     private contactService: ContactService
   ) { }
 
@@ -42,6 +44,8 @@ export class ContactComponent {
       return;
     }
 
+    this.loading = true; // show spinner
+
     const payload: ContactRequest = {
       ...form.value,
       captchaToken: this.captchaToken
@@ -57,6 +61,7 @@ export class ContactComponent {
         });
         form.resetForm();
         this.captchaToken = null;
+        this.loading = false; // hide spinner
       },
       error: (err) => {
         console.error(err);
@@ -66,7 +71,9 @@ export class ContactComponent {
           message: 'Something went wrong. Please try again later.',
           duration: 3000
         });
+        this.loading = false; // hide spinner
       }
     });
   }
 }
+
