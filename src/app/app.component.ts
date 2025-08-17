@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ToastContainerComponent } from "./shared/components/toast-container/toast-container.component";
-import { profile } from './data/profile';
+import { profile, type Links } from './data/profile';
+
+type LinkKey = keyof Links;
 
 @Component({
   selector: 'app-root',
@@ -12,12 +14,21 @@ import { profile } from './data/profile';
     RouterLink,
     RouterOutlet,
     ToastContainerComponent
-],
-  templateUrl:'./app.component.html'
+  ],
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   p = profile;
   isDark = true;
+  currentYear = new Date().getFullYear();
+
+  socialLinks: { key: LinkKey; label: string }[] = [
+    { key: 'linkedin', label: 'LinkedIn' },
+    { key: 'github', label: 'GitHub' },
+    { key: 'facebook', label: 'Facebook' },
+    { key: 'twitter', label: 'Twitter' },
+    { key: 'instagram', label: 'Instagram' }
+  ];
 
   constructor() {
     const saved = localStorage.getItem('theme');
@@ -30,5 +41,4 @@ export class AppComponent {
     document.documentElement.classList.toggle('dark', this.isDark);
     localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
   }
-  
 }

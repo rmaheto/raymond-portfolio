@@ -1,21 +1,86 @@
 // src/app/data/profile.ts
 
-export const profile = {
+// Define a type for links
+export type Links = {
+    email?: string;
+    phone?: string;
+    linkedin?: string;
+    github?: string;
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+};
+
+export const profile: {
+    name: string;
+    title: string;
+    blurb: string;
+    avatar: string;
+    aboutMe: string;
+    resumeUrl: string;
+    location: string;
+    seo: {
+        pageTitle: string;
+        description: string;
+    };
+    contactIntro: string;
+    links: Links;
+    linksDisplay: Partial<Links>;
+    footer: { text: string };
+} = {
     name: 'Raymond Aheto',
     title: 'Senior Software Engineer (Java)',
     blurb:
-        'Full‑stack developer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands‑on DevOps on AWS and Jenkins.',
+        'Full-stack developer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
     avatar: '/assets/raymond.jpg',
+    aboutMe: `I’m a Senior Software Engineer with over 6 years of experience in software development. I specialize in
+            Java, Spring Boot,
+            and microservices, and I’ve led cloud migration projects using AWS. In my recent role at Enterprise
+            Mobility, I upgraded
+            Spring-based applications, migrated batch jobs to the cloud with S3 storage, and modernized SOAP services
+            into secure
+            REST APIs.
+            I’ve worked with messaging tools like ActiveMQ and RabbitMQ, used Redis for caching, and used Hibernate with
+            PostgreSQL
+            and Oracle for data persistence. I’m experienced with CI/CD pipelines using Jenkins and Bitbucket, and I
+            always focus on
+            scalable architecture, clean code, and secure APIs.
+            I hold an Msc. Computer Science from Maharishi International University, Fairfield IA, USA and I’m
+            AWS Certified.`,
     resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
     location: 'West Des Moines, IA',
+
+    seo: {
+        pageTitle: 'About Me - Raymond Aheto',
+        description:
+            'Senior Software Engineer specializing in Java, Spring Boot, AWS cloud migration, and secure API development.',
+    },
+
+    contactIntro:
+        "I'm always interested in discussing new opportunities, challenging projects, or connecting.",
+
     links: {
         email: 'rmkaheto4java@gmail.com',
-        phone: '515‑205‑8276',
+        phone: '515-205-8276',
         linkedin: 'https://www.linkedin.com/in/raymond-aheto',
         github: 'https://github.com/rmaheto',
-        facebook: 'https://www.facebook.com/profile.php?id=100086921498712'
-    }
+        facebook: 'https://www.facebook.com/profile.php?id=100086921498712',
+        twitter: '',
+        instagram: 'https://www.instagram.com/mawunyoaheto/',
+    },
+
+    linksDisplay: {
+        linkedin: 'linkedin.com/in/raymond-aheto',
+        github: 'github.com/rmaheto',
+        facebook: 'facebook.com/raymond-aheto',
+        instagram: 'instagram.com/mawunyoaheto/',
+    },
+
+    footer: {
+        text: 'Crafted with ❤️ by Raymond Aheto',
+    },
 };
+
 
 export const skills = {
     // UI

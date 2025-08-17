@@ -18,10 +18,13 @@ import type { ContactRequest } from '../../shared/models/contact-request.model';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
+  maxMessageLength = 300;
+  warnAt = 100;   // start amber
+  dangerAt = 25;  // turn
   p = profile;
   siteKey = environment.recaptcha_site_key;
   captchaToken: string | null = null;
-  loading = false; // <-- NEW
+  loading = false;
 
   constructor(
     private toast: ToastService,
@@ -44,7 +47,7 @@ export class ContactComponent {
       return;
     }
 
-    this.loading = true; // show spinner
+    this.loading = true;
 
     const payload: ContactRequest = {
       ...form.value,
@@ -61,7 +64,7 @@ export class ContactComponent {
         });
         form.resetForm();
         this.captchaToken = null;
-        this.loading = false; // hide spinner
+        this.loading = false;
       },
       error: (err) => {
         console.error(err);
@@ -71,7 +74,7 @@ export class ContactComponent {
           message: 'Something went wrong. Please try again later.',
           duration: 3000
         });
-        this.loading = false; // hide spinner
+        this.loading = false;
       }
     });
   }

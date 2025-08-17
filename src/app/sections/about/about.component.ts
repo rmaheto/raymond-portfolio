@@ -1,5 +1,6 @@
 import { Component, type OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { profile } from '../../data/profile';
 
 @Component({
   selector: 'app-about',
@@ -9,14 +10,14 @@ import { Title, Meta } from '@angular/platform-browser';
   styleUrl: './about.component.css'
 })
 export class AboutComponent  implements OnInit{
-
+ p = profile;
   constructor(private title: Title, private meta: Meta) { }
 
   ngOnInit() {
-    this.title.setTitle('About Me - Raymond Aheto');
+    this.title.setTitle(this.p.seo.pageTitle);
     this.meta.updateTag({
       name: 'description',
-      content: 'Senior Software Engineer specializing in Java, Spring Boot, AWS cloud migration, and secure API development.'
+      content: this.p.seo.description
     });
   }
 }
