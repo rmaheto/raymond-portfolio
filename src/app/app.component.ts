@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { ToastContainerComponent } from "./shared/components/toast-container/toast-container.component";
 import { profile, type Links } from './data/profile';
+import { filter } from 'rxjs/operators';
 
 type LinkKey = keyof Links;
 
@@ -17,7 +18,7 @@ type LinkKey = keyof Links;
   ],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   p = profile;
   isDark = true;
   currentYear = new Date().getFullYear();
@@ -30,10 +31,29 @@ export class AppComponent {
     { key: 'instagram', label: 'Instagram' }
   ];
 
-  constructor() {
+  constructor(private router: Router) {
     const saved = localStorage.getItem('theme');
     this.isDark = saved ? saved === 'dark' : true;
     document.documentElement.classList.toggle('dark', this.isDark);
+  }
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const currentUrl = 'https://raymond-aheto.com' + this.router.url;
+
+      // Remove existing canonical
+      let existing = document.querySelector("link[rel='canonical']");
+      if (existing) {
+        existing.setAttribute("href", currentUrl);
+      } else {
+        const link: HTMLLinkElement = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        link.setAttribute('href', currentUrl);
+        document.head.appendChild(link);
+      }
+    });
   }
 
   toggle() {
