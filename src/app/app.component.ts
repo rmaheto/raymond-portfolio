@@ -26,7 +26,7 @@ export class AppComponent {
     { key: 'linkedin', label: 'LinkedIn' },
     { key: 'github', label: 'GitHub' },
     { key: 'facebook', label: 'Facebook' },
-    { key: 'twitter', label: 'Twitter' },
+    { key: 'x', label: 'X' },
     { key: 'instagram', label: 'Instagram' }
   ];
 

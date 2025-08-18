@@ -7,7 +7,7 @@ export type Links = {
     linkedin?: string;
     github?: string;
     facebook?: string;
-    twitter?: string;
+    x?: string;
     instagram?: string;
 };
 
@@ -65,7 +65,7 @@ export const profile: {
         linkedin: 'https://www.linkedin.com/in/raymond-aheto',
         github: 'https://github.com/rmaheto',
         facebook: 'https://www.facebook.com/profile.php?id=100086921498712',
-        twitter: '',
+        x: 'https://x.com/mawunyoaheto',
         instagram: 'https://www.instagram.com/mawunyoaheto/',
     },
 
@@ -74,6 +74,7 @@ export const profile: {
         github: 'github.com/rmaheto',
         facebook: 'facebook.com/raymond-aheto',
         instagram: 'instagram.com/mawunyoaheto/',
+        x:'x.com/mawunyoaheto'
     },
 
     footer: {
