@@ -74,7 +74,7 @@ export const profile: {
         github: 'github.com/rmaheto',
         facebook: 'facebook.com/raymond-aheto',
         instagram: 'instagram.com/mawunyoaheto/',
-        x:'x.com/mawunyoaheto'
+        x: 'x.com/mawunyoaheto'
     },
 
     footer: {
@@ -136,13 +136,39 @@ export const projects = [
         name: 'Job Search Management System (MIU)',
         desc:
             'Designed and built an app to track job listings, applications, interviews, and resumes. Implemented REST services and data modeling; documented APIs with Swagger.',
-        tags: ['Java', 'Spring', 'MySQL', 'Artemis', 'Swagger', 'Git']
+        tags: ['Java', 'Spring', 'Spring Data JPA', 'Hibernate', 'Spring Security', 'MySQL', 'Artemis', 'Swagger', 'Git']
     },
+    {
+        name: 'Schomemoire',
+        desc:
+            'A modern school yearbook and management platform built with Spring Boot (Java) and Angular, designed to help schools create digital and printable yearbooks with ease.',
+        tags: ['Java', 'SpringBoot', 'Spring Data JPA', 'Spring Security','Spring AI', 'Aws S3', 'AWS CloudFront', 'Hibernate', 'Postgres', 'Swagger', 'GitLab']
+    },
+    {
+        name: 'Authentication Service',
+        desc:
+            'Microservice for user authentication and authorization, built with Spring Boot and integrated with Spring Security and JWT. Supports role-based access control, secure token management, and service discovery through Spring Cloud Eureka. Designed to be a core component in a microservices architecture.',
+        tags: [
+            'Java',
+            'SpringBoot',
+            'Spring Data JPA',
+            'Spring Security',
+            'JWT',
+            'Spring Cloud',
+            'Eureka Server',
+            'Eureka Client',
+            'Hibernate',
+            'Postgres',
+            'Swagger',
+            'Git'
+        ]
+    },
+
     {
         name: 'Movie Management System (MIU)',
         desc:
             'Full‑stack app to manage movies, actors, and awards with CRUD workflows and Angular UI.',
-        tags: ['Node.js', 'Express.js', 'MongoDB', 'Angular']
+        tags: ['Node.js', 'Express.js', 'Typescript','MongoDB', 'Angular']
     },
     {
         name: 'Dictionary Application',
