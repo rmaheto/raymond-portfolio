@@ -29,24 +29,14 @@ export const profile: {
     footer: { text: string };
 } = {
     name: 'Raymond Aheto',
-    title: 'Senior Software Engineer (Java)',
+    title: 'SOFTWARE ENGINEER | JAVA | AWS CERTIFIED',
     blurb:
         'Full-stack developer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
     avatar: '/assets/raymond.jpg',
-    aboutMe: `I’m a Senior Software Engineer with over 6 years of experience in software development. I specialize in
-            Java, Spring Boot,
-            and microservices, and I’ve led cloud migration projects using AWS. In my recent role at Enterprise
-            Mobility, I upgraded
-            Spring-based applications, migrated batch jobs to the cloud with S3 storage, and modernized SOAP services
-            into secure
-            REST APIs.
-            I’ve worked with messaging tools like ActiveMQ and RabbitMQ, used Redis for caching, and used Hibernate with
-            PostgreSQL
-            and Oracle for data persistence. I’m experienced with CI/CD pipelines using Jenkins and Bitbucket, and I
-            always focus on
-            scalable architecture, clean code, and secure APIs.
-            I hold an Msc. Computer Science from Maharishi International University, Fairfield IA, USA and I’m
-            AWS Certified.`,
+    aboutMe: `I’m a Software Engineer with over 6 years of experience building scalable enterprise applications using Java, Spring Boot, Microservices and AWS. 
+              Strong background in backend development, cloud architecture and system design with a proven ability to deliver high‑quality, secure and efficient solutions. 
+              Experienced in mentoring junior developers, leading technical initiatives and collaborating with clients and cross‑functional teams to drive successful outcomes. 
+              AWS Certified Solutions Architect – Professional`,
     resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
     location: 'West Des Moines, IA',
 
@@ -61,7 +51,7 @@ export const profile: {
 
     links: {
         email: 'rmkaheto4java@gmail.com',
-        phone: '515-205-8276',
+        phone: 'XXX-XXX-8276',
         linkedin: 'https://www.linkedin.com/in/raymond-aheto',
         github: 'https://github.com/rmaheto',
         facebook: 'https://www.facebook.com/profile.php?id=100086921498712',
@@ -201,17 +191,18 @@ export const experience = [
             'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Angular, AWS, Microservices, JUnit, Mockito, Oracle, Splunk, IntelliJ, Swagger, Bitbucket, Jenkins, Jira, Apache Tomcat'
     },
     {
-        role: 'Software Engineer',
+        role: 'Software Engineer/Operations Manager (Hybrid Role)',
         company: 'Infotech Dot Net Systems Ltd – Accra, Ghana',
         period: '2018 – 2021',
         bullets: [
-            'Led integration projects for national healthcare systems; aligned with domain standards.',
-            'Developed RESTful services and backend modules with Spring Boot & Hibernate.',
-            'Created prototypes to validate designs and accelerate delivery.',
-            'Tested APIs with Swagger/Postman; participated in Agile ceremonies.'
+            'Acted as primary liaison with healthcare facility management to gather requirements, demonstrate solutions and ensure successful adoption of the Health Information Management System (HIMS).',
+            'Bridged technical and operational needs by translating client requirements into system features and leading implementation teams.',
+            'Coordinated with vendors, stakeholders and healthcare administrators to deliver compliant, scalable solutions.',
+            'Developed backend services and REST APIs using Spring Boot and Hibernate.',
+            'Participated in Agile ceremonies, ensuring alignment of technical delivery with client operations.'
         ],
         stack:
-            'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat'
+            'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat, , OS Tickets'
     },
     {
         role: 'Backend Developer',
@@ -229,8 +220,10 @@ export const experience = [
         company: 'New Crystal Health Services Ltd – Accra, Ghana',
         period: '2015 – 2018',
         bullets: [
-            'Led IT operations and digital transformation, including a telemedicine rollout.',
-            'Owned vendor relationships and contract negotiations; ensured solution quality.'
+            'Managed IT operations, infrastructure and digital transformation projects for a major healthcare network.',
+            'Led the development of a telemedicine platform and modernization of health information systems.',
+            'Oversaw vendor management, contract negotiations and performance reviews.',
+            'Directed a team of IT staff, setting goals, conducting evaluations and ensuring project delivery.'
         ]
     },
     {
@@ -238,7 +231,7 @@ export const experience = [
         company: 'St. John of God Hospital – Duayaw Nkwanta, Ghana',
         period: '2009 – 2014',
         bullets: [
-            'Managed hospital IT systems, upgrades, and health‑information deployments.',
+            'Oversaw hospital-wide IT strategy, system upgrades, and rollout of health information systems.',
             'Coordinated with software vendors for implementation and support.'
         ]
     }
