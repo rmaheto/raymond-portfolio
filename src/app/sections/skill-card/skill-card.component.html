@@ -1,6 +1,9 @@
-<div class="card dark:card light:light-card p-6 md:p-7 flex flex-col h-full">
-    <h3 class="font-semibold text-white dark:text-white light:text-slate-900 mb-4">{{ title }}</h3>
-    <div class="flex flex-wrap gap-2">
-        <span *ngFor="let i of items" class="pill dark:pill light:light-pill">{{ i }}</span>
-    </div>
+<div [ngClass]="cardClass" class="p-6 md:p-7 flex flex-col h-full">
+  <h3 class="font-semibold text-slate-900 dark:text-white mb-4">{{ title }}</h3>
+
+  <div class="flex flex-wrap gap-2">
+    <span *ngFor="let i of items" [ngClass]="pillClass">
+      {{ i }}
+    </span>
+  </div>
 </div>

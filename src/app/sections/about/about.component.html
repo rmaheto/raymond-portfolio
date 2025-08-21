@@ -1,10 +1,10 @@
 <section id="about" class="section container-xl py-12 mb-12">
   <h2 class="heading-2 text-slate-600 dark:text-slate-300/95">About Me</h2>
+
   <div
-    class="mt-8 card p-6 md:p-8 text-slate-300 leading-7 dark:card light:light-card"
+    class="mt-8 p-6 md:p-8 leading-7 transition-shadow text-slate-700 dark:text-slate-300"
+    [ngClass]="cardClass"
   >
-    <p>
-      {{ p.aboutMe }}
-    </p>
+    <p>{{ p.aboutMe }}</p>
   </div>
 </section>

@@ -118,7 +118,6 @@
   </header>
 
 
-  <!-- Router outlet -->
   <main class="max-w-6xl mx-auto px-4">
     <router-outlet></router-outlet>
   </main>
@@ -140,4 +139,30 @@
 
 
   <app-toast-container></app-toast-container>
+  <!-- Back to Top (glass + progress ring) -->
+  <button *ngIf="showBackToTop" (click)="scrollToTop()" [attr.aria-label]="'Back to top'" class="group fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full
+         shadow-xl ring-1 ring-white/20 backdrop-blur-md
+         bg-gradient-to-b from-white/15 to-white/5 dark:from-white/10 dark:to-white/5
+         hover:shadow-2xl hover:-translate-y-1 transition
+         flex items-center justify-center" [style.background]="progressBg"
+    style="background-origin: border-box; background-clip: content-box, border-box;" title="Back to top (Home)">
+
+    <span class="absolute inset-[3px] rounded-full
+           bg-white/70 dark:bg-slate-900/70
+           shadow-inner backdrop-blur-md"></span>
+
+    <svg class="relative h-5 w-5 text-slate-800 dark:text-white/90
+           group-hover:translate-y-[-2px] transition" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5"></path>
+      <path d="M5 12l7-7 7 7"></path>
+    </svg>
+
+    <span class="pointer-events-none absolute -top-9 right-1/2 translate-x-1/2
+           rounded-md px-2 py-1 text-[11px] font-medium
+           bg-slate-900/90 text-white shadow
+           opacity-0 group-hover:opacity-100 transition">Top</span>
+  </button>
+
+
 </div>

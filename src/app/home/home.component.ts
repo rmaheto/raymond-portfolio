@@ -7,6 +7,8 @@ import { ContactComponent } from '../sections/contact/contact.component';
 import { ExperienceComponent } from '../sections/experience/experience.component';
 import { ProjectsComponent } from '../sections/projects/projects.component';
 import { SkillsComponent } from '../sections/skills/skills.component';
+import { ThemeService } from '../services/theme.service';
+import type { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -18,25 +20,34 @@ import { SkillsComponent } from '../sections/skills/skills.component';
     ProjectsComponent,
     ExperienceComponent,
     CertificationsComponent,
-    ContactComponent
+    ContactComponent,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements AfterViewInit {
+  isDark = false;
+  private sub?: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, public theme: ThemeService) {
+    this.isDark = this.theme.isDark;
+    this.sub = this.theme.isDark$.subscribe((v) => (this.isDark = v));
+  }
 
   ngAfterViewInit() {
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       if (data['scrollTo']) {
         setTimeout(() => {
           const el = document.getElementById(data['scrollTo']);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        }, 100); // short delay to ensure DOM renders before scroll
+        }, 100);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
   }
 }

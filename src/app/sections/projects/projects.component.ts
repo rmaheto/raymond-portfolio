@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { projects } from '../../data/profile';
 
@@ -7,8 +7,17 @@ import { projects } from '../../data/profile';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.css'
+  styleUrl: './projects.component.css',
 })
 export class ProjectsComponent {
- myProjects = projects;
+  @Input() isDark = false;
+  myProjects = projects;
+
+  get cardClass() {
+    return this.isDark ? 'card' : 'light-card';
+  }
+
+  get pillClass() {
+    return this.isDark ? 'pill' : 'light-pill';
+  }
 }

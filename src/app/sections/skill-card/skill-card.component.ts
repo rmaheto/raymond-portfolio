@@ -6,9 +6,17 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './skill-card.component.html',
-  styleUrl: './skill-card.component.css'
+  styleUrl: './skill-card.component.css',
 })
 export class SkillCardComponent {
   @Input() title = '';
   @Input() items: string[] = [];
+  @Input() isDark = false;
+
+  get cardClass() {
+    return this.isDark ? 'card' : 'light-card';
+  }
+  get pillClass() {
+    return this.isDark ? 'pill' : 'light-pill';
+  }
 }

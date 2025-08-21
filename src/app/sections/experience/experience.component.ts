@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { experience } from '../../data/profile';
 
@@ -7,8 +7,13 @@ import { experience } from '../../data/profile';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './experience.component.html',
-  styleUrl: './experience.component.css'
+  styleUrl: './experience.component.css',
 })
 export class ExperienceComponent {
-exp = experience;
+  @Input() isDark = false;
+  exp = experience;
+
+  get cardClass() {
+    return this.isDark ? 'card' : 'light-card';
+  }
 }

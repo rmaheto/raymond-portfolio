@@ -41,7 +41,6 @@ html {
     @apply max-w-7xl mx-auto px-6;
   }
 
-
   .heading-hero {
     @apply font-sans text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white;
   }
@@ -82,38 +81,52 @@ html {
     @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-white bg-gradient-to-r from-[#4A5BFF] to-[#5563ff] shadow-brand-sm hover:shadow-brand-lg hover:-translate-y-px active:translate-y-0 transition;
   }
 
-   .btn-ghost {
-       @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-base font-medium transition;
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md text-base font-medium transition;
 
-       /* light (default) */
-       @apply text-slate-700 border border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900;
+    /* light (default) */
+    @apply text-slate-700 border border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900;
 
-       /* dark */
-       @apply dark:text-slate-200 dark:border-white/[0.15] dark:bg-transparent dark:hover:bg-white/[0.06] dark:hover:text-white;
+    /* dark */
+    @apply dark:text-slate-200 dark:border-white/[0.15] dark:bg-transparent dark:hover:bg-white/[0.06] dark:hover:text-white;
 
-       /* focus ring (both) */
-       @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4452FE] dark:focus-visible:ring-offset-0;
-   }
+    /* focus ring (both) */
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4452FE] dark:focus-visible:ring-offset-0;
+  }
 
-   .btn-ghost svg {
-       @apply w-5 h-5;
-   }
+  .btn-ghost svg {
+    @apply w-5 h-5;
+  }
 
-   /* Make reCAPTCHA responsive */
-   .recaptcha-container {
-       transform: scale(0.9);
-       transform-origin: 0 0;
-   }
+  /* Make reCAPTCHA responsive */
+  .recaptcha-container {
+    transform: scale(0.9);
+    transform-origin: 0 0;
+  }
 
-   @media (max-width: 768px) {
-       .recaptcha-container {
-           transform: scale(0.8);
-       }
-   }
+  @media (max-width: 768px) {
+    .recaptcha-container {
+      transform: scale(0.8);
+    }
+  }
 
-   @media (max-width: 480px) {
-       .recaptcha-container {
-           transform: scale(0.75);
-       }
-   }
+  @media (max-width: 480px) {
+    .recaptcha-container {
+      transform: scale(0.75);
+    }
+  }
+
+  .field-solid {
+    @apply w-full rounded-md px-3 py-2 text-sm outline-none transition;
+
+    /* light (default) */
+    @apply bg-white text-slate-900 border border-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-[#4452FE] focus:border-[#4452FE];
+
+    /* dark */
+    @apply dark:bg-slate-800 dark:text-slate-200 dark:border-slate-600 dark:placeholder:text-slate-400 dark:focus:ring-2 dark:focus:ring-[#4452FE] dark:focus:border-[#4452FE];
+  }
+
+  .field-error {
+    @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { certifications } from '../../data/profile';
 import { CommonModule } from '@angular/common';
 
@@ -7,9 +7,13 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './certifications.component.html',
-  styleUrls: ['./certifications.component.css']
+  styleUrls: ['./certifications.component.css'],
 })
-export class CertificationsComponent{
+export class CertificationsComponent {
+  @Input() isDark = false;
   certs = certifications;
 
+  get cardClass() {
+    return this.isDark ? 'card' : 'light-card';
+  }
 }
