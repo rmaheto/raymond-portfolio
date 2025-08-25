@@ -31,9 +31,9 @@ export const profile: {
   name: 'Raymond Aheto',
   title: 'SOFTWARE ENGINEER | JAVA | AWS CERTIFIED',
   blurb:
-    'Senior Software Engineer with 7+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
+    'Senior Software Engineer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
   avatar: '/assets/raymond.jpg',
-  aboutMe: `Senior Software Engineer with 7+ years of experience delivering scalable enterprise applications in Java (8–17), Spring (Boot, MVC, Batch), REST APIs, microservices, messaging systems, and AWS. 
+  aboutMe: `Senior Software Engineer with 6+ years of experience delivering scalable enterprise applications in Java (8–17), Spring (Boot, MVC, Batch), REST APIs, microservices, messaging systems, and AWS. 
             Led modernization initiatives including Spring upgrades, SOAP-to-REST transformations, and migration of batch workloads to S3, improving performance and reducing cost. 
             AWS Certified Solutions Architect with strengths in cloud integration, performance optimization, and production support. 
             CISA certified since 2016, bringing security and compliance awareness to software development and cloud solutions.`,
