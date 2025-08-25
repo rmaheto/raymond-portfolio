@@ -1,4 +1,3 @@
-// theme.service.ts
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,13 +6,11 @@ export class ThemeService implements OnDestroy {
     private _isDark = new BehaviorSubject<boolean>(true);
     readonly isDark$ = this._isDark.asObservable();
 
-    // Track if the user has explicitly chosen a theme
     private _userHasPreference = false;
     private mediaQuery?: MediaQueryList;
     private mqListener?: (e: MediaQueryListEvent) => void;
 
     init() {
-        // 1) If user has already chosen, use it
         const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
         if (saved === 'dark' || saved === 'light') {
             this._userHasPreference = true;
@@ -21,12 +18,11 @@ export class ThemeService implements OnDestroy {
             return;
         }
 
-        // 2) Otherwise, use system preference
+
         if (typeof window !== 'undefined' && 'matchMedia' in window) {
             this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
             this.apply(this.mediaQuery.matches);
 
-            // 3) (Optional) Keep in sync with system as long as user hasn't chosen
             this.mqListener = (e) => {
                 if (!this._userHasPreference) this.apply(e.matches);
             };
@@ -38,7 +34,6 @@ export class ThemeService implements OnDestroy {
                 this.mediaQuery.addListener(this.mqListener);
             }
         } else {
-            // Fallback: default dark or light as you prefer
             this.apply(true);
         }
     }

@@ -199,7 +199,7 @@ export const experience = [
   {
     role: 'Software Engineer II',
     company:
-      'Application Engineering Group (Client: Enterprise Mobility), United States',
+      'Enterprise Mobility, United States',
     period: 'Jun 2022 – Jul 2025',
     bullets: [
       'Led modernization by upgrading Spring Boot (2.5→3.1), Spring MVC (4→5.3), and microservices (Java 8→17), improving uptime and throughput by 30%',
