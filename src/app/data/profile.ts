@@ -33,10 +33,10 @@ export const profile: {
   blurb:
     'Senior Software Engineer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
   avatar: '/assets/raymond.jpg',
-  aboutMe: `Senior Software Engineer with 6+ years of experience delivering scalable enterprise applications in Java (8–17), Spring (Boot, MVC, Batch), REST APIs, microservices, messaging systems, and AWS. 
-            Led modernization initiatives including Spring upgrades, SOAP-to-REST transformations, and migration of batch workloads to S3, improving performance and reducing cost. 
-            AWS Certified Solutions Architect with strengths in cloud integration, performance optimization, and production support. 
-            CISA certified since 2016, bringing security and compliance awareness to software development and cloud solutions.`,
+  aboutMe: `Senior Software Engineer with 6+ years of hands-on experience building scalable enterprise applications in Java
+            (8–17), Spring Boot, and AWS. Specializes in REST API design, microservices, messaging systems (Kafka,
+            RabbitMQ), and cloud-native development. Proven success modernizing legacy platforms, reducing costs, and
+            improving performance.`,
   resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
   location: 'West Des Moines, IA',
 
@@ -199,15 +199,14 @@ export const experience = [
   {
     role: 'Software Engineer II',
     company:
-      'Enterprise Mobility, United States',
-    period: 'Jun 2022 – Jul 2025',
+      'AEG, Inc (Employer) | Client: Enterprise Mobility, United States',
+    period: 'Jun 2022 – Present',
     bullets: [
-      'Led modernization by upgrading Spring Boot (2.5→3.1), Spring MVC (4→5.3), and microservices (Java 8→17), improving uptime and throughput by 30%',
-      'Migrated Spring Batch jobs to AWS S3 with lifecycle policies, cutting on-prem storage costs by 40% and boosting scalability',
-      'Modernized SOAP services into REST APIs and built event-driven microservices with Kafka + OAuth 2.0, reducing integration time by 50%',
-      'Optimized Maven and migrated XML configs to Java Config, cutting build time 20%, startup time 20%, and config issues 70%',
-      'Resolved production incidents via Splunk log analysis and code fixes, delivering hot-fixes with minimal downtime',
-      'Delivered stakeholder demos and onboarding sessions, accelerating knowledge transfer and team ramp-up',
+      'Modernized legacy SOAP services into secure RESTful APIs using Spring Boot, improving interoperability across enterprise platforms.',
+      'Developed event-driven microservices with RabbitMQ and OAuth 2.0, enabling real-time processing and improvingthroughput by 30% ',
+      'Migrated Spring Batch workloads to AWS S3, reducing on-prem storage costs by 40% and improving scalability.',
+      'Upgraded Java (8–17), Spring Boot (2.5–3.1), and Spring MVC (4–5.3), enhancing reliability and reducing downtime by 30%.',
+      'Resolved production incidents via Splunk log analysis and code fixes, delivering hot-fixes with minimal downtime'
     ],
     stack:
       'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Angular, AWS, Microservices, JUnit, Mockito, Oracle, Splunk, IntelliJ, Swagger, Bitbucket, Jenkins, Jira, Apache Tomcat',
@@ -217,13 +216,14 @@ export const experience = [
     company: 'Infotech Dot Net Systems Ltd – Accra, Ghana',
     period: '2018 – 2021',
     bullets: [
-      'Transformed monolithic apps into Spring Boot microservices with API Gateway + Eureka, improving scalability',
-      'Optimized data persistence with Hibernate, PostgreSQL, and Oracle, reducing query times by 35%',
-      'Acted as primary liaison with healthcare facility management to gather requirements, demonstrate solutions and ensure successful adoption of the Health Information Management System (HIMS).',
-      'Bridged technical and operational needs by translating client requirements into system features and leading implementation teams.',
-      'Coordinated with vendors, stakeholders and healthcare administrators to deliver compliant, scalable solutions.',
-      'Set up GitHub Actions CI/CD and translated client requirements into features for smooth delivery',
-      'Participated in Agile ceremonies, ensuring alignment of technical delivery with client operations.',
+      'Designed and implemented RESTful APIs in Spring Boot to integrate EHR systems with third-party healthcare services',
+      'Transformed healthcare monolithic applications into Spring Boot microservices with API Gateway and Eureka, improving scalability and system availability for patient services',
+      'Developed batch jobs with Spring Batch to automate daily data synchronization of lab results and billing information, reducing manual intervention',
+      'Implemented Kafka messaging to securely process 100K+ daily healthcare transactions, improving reliability and throughput',
+      'Introduced caching (Spring Cache + Redis) for frequently accessed medical codes and reference data, improving application response time by 40%',
+      'Acted as primary liaison with healthcare facility management to gather requirements, demonstrate solutions and ensure successful adoption of the Health Information Management System (HIMS)',
+      'Coordinated with vendors, stakeholders and healthcare administrators to deliver compliant, scalable solutions.'
+      
     ],
     stack:
       'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat, , OS Tickets',
