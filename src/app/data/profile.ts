@@ -33,10 +33,9 @@ export const profile: {
   blurb:
     'Senior Software Engineer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
   avatar: '/assets/raymond.jpg',
-  aboutMe: `Senior Software Engineer with 6+ years of hands-on experience building scalable enterprise applications in Java
-            (8–17), Spring Boot, and AWS. Specializes in REST API design, microservices, messaging systems (Kafka,
-            RabbitMQ), and cloud-native development. Proven success modernizing legacy platforms, reducing costs, and
-            improving performance.`,
+  aboutMe: `Senior Software Engineer with 6+ years of experience delivering scalable enterprise applications using Java (8–17), Spring Boot, and AWS. Skilled in designing, developing, and maintaining REST APIs, 
+            microservices, and messaging systems (Kafka, RabbitMQ) with Spring and Hibernate. Proven ability to modernize legacy platforms, build new features that enhance customer experience and accelerate 
+            product delivery, reduce costs, and improve system performance through cloud-native solutions.`,
   resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
   location: 'West Des Moines, IA',
 
@@ -202,14 +201,16 @@ export const experience = [
       'AEG, Inc (Employer) | Client: Enterprise Mobility, United States',
     period: 'Jun 2022 – Present',
     bullets: [
-      'Modernized legacy SOAP services into secure RESTful APIs using Spring Boot, improving interoperability across enterprise platforms.',
+      'Modernized legacy SOAP services into secure, standards-based RESTful APIs using Spring Boot, improving interoperability',
+      'Migrated Spring Batch workloads to AWS S3, reducing on-prem storage costs by 40% and boosting scalability',
+      'Upgraded Java (8 to 17), Spring Boot (2.5 to 3.1), Spring MVC (4 to 5.3), enhancing reliability and reducing downtime by 30%.',
       'Developed event-driven microservices with RabbitMQ and OAuth 2.0, enabling real-time processing and improvingthroughput by 30% ',
-      'Migrated Spring Batch workloads to AWS S3, reducing on-prem storage costs by 40% and improving scalability.',
-      'Upgraded Java (8–17), Spring Boot (2.5–3.1), and Spring MVC (4–5.3), enhancing reliability and reducing downtime by 30%.',
-      'Resolved production incidents via Splunk log analysis and code fixes, delivering hot-fixes with minimal downtime'
+      'Delivered new feature development, adding Vehicle Recall Audit functionality that improved compliance tracking and streamlined vehicle repair workflows in a fleet management application',
+      'Collaborated with product teams to align sprint goals and user needs, reducing feature delivery time by 15%',
+      'Resolved production incidents with Splunk log analysis and code fixes, ensuring SLA compliance.'
     ],
     stack:
-      'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Angular, AWS, Microservices, JUnit, Mockito, Oracle, Splunk, IntelliJ, Swagger, Bitbucket, Jenkins, Jira, Apache Tomcat',
+      'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Splunk, Angular, AWS, Microservices, JUnit, Mockito, Oracle, Splunk, IntelliJ, Swagger, Bitbucket, Jenkins, Jira, Apache Tomcat',
   },
   {
     role: 'Software Engineer/Operations Manager (Hybrid Role)',
@@ -223,7 +224,7 @@ export const experience = [
       'Introduced caching (Spring Cache + Redis) for frequently accessed medical codes and reference data, improving application response time by 40%',
       'Acted as primary liaison with healthcare facility management to gather requirements, demonstrate solutions and ensure successful adoption of the Health Information Management System (HIMS)',
       'Coordinated with vendors, stakeholders and healthcare administrators to deliver compliant, scalable solutions.'
-      
+
     ],
     stack:
       'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat, , OS Tickets',
