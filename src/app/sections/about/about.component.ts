@@ -1,7 +1,8 @@
 import { Component, Input, type OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { profile } from '../../data/profile';
 import { CommonModule } from '@angular/common';
+import { PortfolioApiService } from '../../services/portfolio-api.service';
+import { PortfolioProfile } from '../../models/portfolio.model';
 
 @Component({
   selector: 'app-about',
@@ -11,15 +12,22 @@ import { CommonModule } from '@angular/common';
   styleUrl: './about.component.css',
 })
 export class AboutComponent implements OnInit {
-  p = profile;
+  p: PortfolioProfile | null = null;
   @Input() isDark = false;
-  constructor(private title: Title, private meta: Meta) {}
+
+  constructor(
+    private title: Title,
+    private meta: Meta,
+    private portfolioApi: PortfolioApiService
+  ) {}
 
   ngOnInit() {
-    this.title.setTitle(this.p.seo.pageTitle);
-    this.meta.updateTag({
-      name: 'description',
-      content: this.p.seo.description,
+    this.portfolioApi.portfolio$.subscribe((data) => {
+      if (data) {
+        this.p = data.profile;
+        this.title.setTitle('About Me - ' + data.profile.name);
+        this.meta.updateTag({ name: 'description', content: data.profile.blurb });
+      }
     });
   }
 

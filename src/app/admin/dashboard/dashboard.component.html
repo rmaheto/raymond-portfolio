@@ -1,0 +1,335 @@
+<div class="min-h-screen bg-slate-900 text-slate-200">
+
+  <!-- Top bar -->
+  <header class="bg-slate-800 border-b border-slate-700 px-6 py-3 flex items-center justify-between">
+    <h1 class="text-lg font-bold text-white">Portfolio Admin</h1>
+    <button (click)="logout()" class="text-sm text-slate-400 hover:text-white transition">Sign out</button>
+  </header>
+
+  <!-- Tab nav -->
+  <nav class="bg-slate-800/60 border-b border-slate-700 px-6 flex gap-1 overflow-x-auto">
+    <button *ngFor="let t of tabs" (click)="setTab(t.key)"
+      [class.border-blue-500]="activeTab === t.key"
+      [class.text-white]="activeTab === t.key"
+      [class.text-slate-400]="activeTab !== t.key"
+      class="px-4 py-3 text-sm font-medium border-b-2 border-transparent whitespace-nowrap transition">
+      {{ t.label }}
+    </button>
+  </nav>
+
+  <main class="max-w-4xl mx-auto p-6">
+
+    <!-- Status message -->
+    <p *ngIf="message" class="mb-4 text-sm text-green-400">{{ message }}</p>
+
+    <!-- ── PROFILE ─────────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'profile' && profileDraft">
+      <h2 class="text-xl font-semibold mb-6">Profile</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div *ngFor="let field of [
+          {key:'name',label:'Name'}, {key:'title',label:'Title'}, {key:'location',label:'Location'},
+          {key:'email',label:'Email'}, {key:'phone',label:'Phone'},
+          {key:'linkedin',label:'LinkedIn URL'}, {key:'linkedinDisplay',label:'LinkedIn Display'},
+          {key:'github',label:'GitHub URL'}, {key:'githubDisplay',label:'GitHub Display'},
+          {key:'facebook',label:'Facebook URL'}, {key:'facebookDisplay',label:'Facebook Display'},
+          {key:'xHandle',label:'X URL'}, {key:'xDisplay',label:'X Display'},
+          {key:'instagram',label:'Instagram URL'}, {key:'instagramDisplay',label:'Instagram Display'}
+        ]">
+          <label class="block text-sm text-slate-400 mb-1">{{ field.label }}</label>
+          <input [(ngModel)]="$any(profileDraft)[field.key]" [name]="field.key"
+            class="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm text-slate-400 mb-1">Blurb (hero)</label>
+          <textarea [(ngModel)]="profileDraft['blurb']" name="blurb" rows="3"
+            class="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm text-slate-400 mb-1">About Me</label>
+          <textarea [(ngModel)]="profileDraft['aboutMe']" name="aboutMe" rows="6"
+            class="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm text-slate-400 mb-1">Contact Intro</label>
+          <textarea [(ngModel)]="profileDraft['contactIntro']" name="contactIntro" rows="2"
+            class="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm text-slate-400 mb-1">Footer Text</label>
+          <input [(ngModel)]="profileDraft['footerText']" name="footerText"
+            class="w-full px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500" />
+        </div>
+      </div>
+
+      <button (click)="saveProfile()" [disabled]="saving"
+        class="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition">
+        {{ saving ? 'Saving…' : 'Save Profile' }}
+      </button>
+    </section>
+
+    <!-- ── SKILLS ──────────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'skills'">
+      <h2 class="text-xl font-semibold mb-6">Skills</h2>
+
+      <div *ngFor="let cat of skillCategories" class="mb-8">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wide">{{ cat }}</h3>
+          <button (click)="newSkill(cat)"
+            class="text-xs px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">+ Add</button>
+        </div>
+
+        <div *ngFor="let skill of skillsByCategory[cat]"
+          class="flex items-center justify-between py-2 px-3 bg-slate-800 rounded-lg mb-1">
+          <span class="text-sm">{{ skill.name }}</span>
+          <div class="flex gap-2">
+            <button (click)="editSkill(skill)" class="text-xs text-blue-400 hover:text-blue-300">Edit</button>
+            <button (click)="deleteSkill(skill)" class="text-xs text-red-400 hover:text-red-300">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skill editor -->
+      <div *ngIf="editingSkill" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-sm">
+          <h3 class="font-semibold mb-4">{{ editingSkill.id ? 'Edit' : 'Add' }} Skill</h3>
+          <div class="mb-3">
+            <label class="text-sm text-slate-400 mb-1 block">Category</label>
+            <select [(ngModel)]="editingSkill.category"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none">
+              <option *ngFor="let c of skillCategories" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="text-sm text-slate-400 mb-1 block">Name</label>
+            <input [(ngModel)]="editingSkill.name"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+          <div class="flex gap-3">
+            <button (click)="saveSkill()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">Save</button>
+            <button (click)="cancelSkillEdit()" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE ──────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'experience'">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">Experience</h2>
+        <button (click)="newExp()" class="text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">+ Add</button>
+      </div>
+
+      <div *ngFor="let exp of data?.experience"
+        class="bg-slate-800 rounded-xl p-4 mb-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="font-medium text-white">{{ exp.role }}</p>
+            <p class="text-sm text-slate-400">{{ exp.company }}</p>
+            <p class="text-xs text-slate-500">{{ exp.period }}</p>
+          </div>
+          <div class="flex gap-3">
+            <button (click)="editExp(exp)" class="text-sm text-blue-400 hover:text-blue-300">Edit</button>
+            <button (click)="deleteExp(exp)" class="text-sm text-red-400 hover:text-red-300">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience editor modal -->
+      <div *ngIf="editingExp" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-2xl my-4">
+          <h3 class="font-semibold mb-4">{{ editingExp.id ? 'Edit' : 'Add' }} Experience</h3>
+
+          <div class="grid md:grid-cols-2 gap-3 mb-3">
+            <div>
+              <label class="text-xs text-slate-400 mb-1 block">Role</label>
+              <input [(ngModel)]="editingExp.role"
+                class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 mb-1 block">Company</label>
+              <input [(ngModel)]="editingExp.company"
+                class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 mb-1 block">Period</label>
+              <input [(ngModel)]="editingExp.period"
+                class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="text-xs text-slate-400 mb-1 block">Tech Stack (comma-separated)</label>
+            <input [(ngModel)]="editingExp.stack"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+
+          <div class="mb-4">
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-xs text-slate-400">Bullets</label>
+              <button (click)="addBullet()" class="text-xs text-blue-400 hover:text-blue-300">+ Add bullet</button>
+            </div>
+            <div *ngFor="let bullet of editingExp.bullets; let i = index; trackBy: trackByIndex" class="flex gap-2 mb-2">
+              <input [value]="bullet" (input)="updateBullet(i, $any($event.target).value)"
+                class="flex-1 px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+              <button (click)="removeBullet(i)" class="text-red-400 hover:text-red-300 px-2">✕</button>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button (click)="saveExp()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">Save</button>
+            <button (click)="cancelExpEdit()" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ────────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'projects'">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">Projects</h2>
+        <button (click)="newProject()" class="text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">+ Add</button>
+      </div>
+
+      <div *ngFor="let project of data?.projects" class="bg-slate-800 rounded-xl p-4 mb-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="font-medium text-white">{{ project.name }}</p>
+            <p class="text-xs text-slate-400 mt-1">{{ project.tags.join(', ') }}</p>
+          </div>
+          <div class="flex gap-3">
+            <button (click)="editProject(project)" class="text-sm text-blue-400 hover:text-blue-300">Edit</button>
+            <button (click)="deleteProject(project)" class="text-sm text-red-400 hover:text-red-300">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="editingProject" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-lg">
+          <h3 class="font-semibold mb-4">{{ editingProject.id ? 'Edit' : 'Add' }} Project</h3>
+          <div class="mb-3">
+            <label class="text-xs text-slate-400 mb-1 block">Name</label>
+            <input [(ngModel)]="editingProject.name"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+          <div class="mb-3">
+            <label class="text-xs text-slate-400 mb-1 block">Description</label>
+            <textarea [(ngModel)]="editingProject.description" rows="3"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500"></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="text-xs text-slate-400 mb-1 block">Tags (comma-separated)</label>
+            <input [(ngModel)]="projectTagsText"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+          <div class="flex gap-3">
+            <button (click)="saveProject()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">Save</button>
+            <button (click)="cancelProjectEdit()" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CERTIFICATIONS ─────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'certifications'">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">Certifications</h2>
+        <button (click)="newCert()" class="text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">+ Add</button>
+      </div>
+
+      <div *ngFor="let cert of data?.certifications" class="bg-slate-800 rounded-xl p-4 mb-4">
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-white">{{ cert.name }}</p>
+          <div class="flex gap-3">
+            <button (click)="editCert(cert)" class="text-sm text-blue-400 hover:text-blue-300">Edit</button>
+            <button (click)="deleteCert(cert)" class="text-sm text-red-400 hover:text-red-300">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="editingCert" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-md">
+          <h3 class="font-semibold mb-4">{{ editingCert.id ? 'Edit' : 'Add' }} Certification</h3>
+          <div *ngFor="let f of [{key:'name',label:'Name'},{key:'badgeUrl',label:'Badge URL'},{key:'link',label:'Credly Link'}]" class="mb-3">
+            <label class="text-xs text-slate-400 mb-1 block">{{ f.label }}</label>
+            <input [(ngModel)]="$any(editingCert)[f.key]" [name]="f.key"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+          <div class="flex gap-3">
+            <button (click)="saveCert()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">Save</button>
+            <button (click)="cancelCertEdit()" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EDUCATION ───────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'education'">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">Education</h2>
+        <button (click)="newEdu()" class="text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">+ Add</button>
+      </div>
+
+      <div *ngFor="let edu of data?.education" class="bg-slate-800 rounded-xl p-4 mb-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="font-medium text-white">{{ edu.name }}</p>
+            <p class="text-sm text-slate-400">{{ edu.school }}</p>
+            <p class="text-xs text-slate-500">{{ edu.years }}</p>
+          </div>
+          <div class="flex gap-3">
+            <button (click)="editEdu(edu)" class="text-sm text-blue-400 hover:text-blue-300">Edit</button>
+            <button (click)="deleteEdu(edu)" class="text-sm text-red-400 hover:text-red-300">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="editingEdu" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-md">
+          <h3 class="font-semibold mb-4">{{ editingEdu.id ? 'Edit' : 'Add' }} Education</h3>
+          <div *ngFor="let f of [{key:'name',label:'Degree/Program'},{key:'school',label:'Institution'},{key:'years',label:'Year(s)'}]" class="mb-3">
+            <label class="text-xs text-slate-400 mb-1 block">{{ f.label }}</label>
+            <input [(ngModel)]="$any(editingEdu)[f.key]" [name]="f.key"
+              class="w-full px-3 py-2 bg-slate-700 rounded-lg text-sm text-white border border-slate-600 focus:outline-none focus:border-blue-500" />
+          </div>
+          <div class="flex gap-3">
+            <button (click)="saveEdu()" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg">Save</button>
+            <button (click)="cancelEduEdit()" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESUME ──────────────────────────────────────────────────────── -->
+    <section *ngIf="activeTab === 'resume'">
+      <h2 class="text-xl font-semibold mb-6">Resume</h2>
+
+      <div class="bg-slate-800 rounded-xl p-6 mb-6">
+        <p class="text-sm text-slate-400 mb-1">Current resume URL</p>
+        <a *ngIf="data?.profile?.resumeUrl" [href]="data!.profile.resumeUrl" target="_blank"
+          class="text-blue-400 hover:text-blue-300 text-sm break-all">
+          {{ data?.profile?.resumeUrl }}
+        </a>
+        <p *ngIf="!data?.profile?.resumeUrl" class="text-slate-500 text-sm">No resume set.</p>
+      </div>
+
+      <div class="bg-slate-800 rounded-xl p-6">
+        <h3 class="font-medium mb-4">Upload new resume (PDF)</h3>
+        <input type="file" accept=".pdf" (change)="onResumeSelected($event)"
+          class="block text-sm text-slate-400 mb-4
+                 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
+                 file:text-sm file:font-medium file:bg-blue-600 file:text-white
+                 hover:file:bg-blue-700 cursor-pointer" />
+        <button (click)="uploadResume()" [disabled]="!resumeFile || uploadingResume"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition">
+          {{ uploadingResume ? 'Uploading…' : 'Upload to S3' }}
+        </button>
+        <p *ngIf="resumeFile" class="mt-2 text-xs text-slate-400">Selected: {{ resumeFile.name }}</p>
+      </div>
+    </section>
+
+  </main>
+</div>

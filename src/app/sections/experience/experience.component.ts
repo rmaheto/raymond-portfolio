@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { experience } from '../../data/profile';
+import { PortfolioApiService } from '../../services/portfolio-api.service';
+import { ExperienceEntry } from '../../models/portfolio.model';
 
 @Component({
   selector: 'app-experience',
@@ -9,9 +10,17 @@ import { experience } from '../../data/profile';
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })
-export class ExperienceComponent {
+export class ExperienceComponent implements OnInit {
   @Input() isDark = false;
-  exp = experience;
+  exp: ExperienceEntry[] = [];
+
+  constructor(private portfolioApi: PortfolioApiService) {}
+
+  ngOnInit() {
+    this.portfolioApi.portfolio$.subscribe((data) => {
+      if (data) this.exp = data.experience;
+    });
+  }
 
   get cardClass() {
     return this.isDark ? 'card' : 'light-card';

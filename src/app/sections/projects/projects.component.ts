@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { projects } from '../../data/profile';
+import { PortfolioApiService } from '../../services/portfolio-api.service';
+import { ProjectEntry } from '../../models/portfolio.model';
 
 @Component({
   selector: 'app-projects',
@@ -9,9 +10,17 @@ import { projects } from '../../data/profile';
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css',
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit {
   @Input() isDark = false;
-  myProjects = projects;
+  myProjects: ProjectEntry[] = [];
+
+  constructor(private portfolioApi: PortfolioApiService) {}
+
+  ngOnInit() {
+    this.portfolioApi.portfolio$.subscribe((data) => {
+      if (data) this.myProjects = data.projects;
+    });
+  }
 
   get cardClass() {
     return this.isDark ? 'card' : 'light-card';

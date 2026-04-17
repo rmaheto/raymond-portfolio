@@ -1,12 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { profile } from '../../data/profile';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastService } from '../../services/toast.service';
 import { environment } from '../../environments/environment';
 import { ContactService } from '../../services/contact.service';
 import type { ContactRequest } from '../../shared/models/contact-request.model';
+import { PortfolioApiService } from '../../services/portfolio-api.service';
+import { PortfolioProfile } from '../../models/portfolio.model';
 
 @Component({
   selector: 'app-contact',
@@ -15,20 +16,27 @@ import type { ContactRequest } from '../../shared/models/contact-request.model';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   @Input() isDark = false;
   maxMessageLength = 300;
-  warnAt = 100; // start amber
-  dangerAt = 25; // turn
-  p = profile;
+  warnAt = 100;
+  dangerAt = 25;
+  p: PortfolioProfile | null = null;
   siteKey = environment.recaptcha_site_key;
   captchaToken: string | null = null;
   loading = false;
 
   constructor(
     private toast: ToastService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private portfolioApi: PortfolioApiService
   ) {}
+
+  ngOnInit() {
+    this.portfolioApi.portfolio$.subscribe((data) => {
+      if (data) this.p = data.profile;
+    });
+  }
 
   get cardClass() {
     return this.isDark ? 'card' : 'light-card';

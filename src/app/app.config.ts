@@ -4,7 +4,8 @@ import { routes } from './app.routes';
 import { ScrollService } from './services/ScrollService';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';  // ✅ import this
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     ScrollService,
     provideToastr(),
     provideAnimations(),
-    provideHttpClient()   // ✅ add HttpClient here
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
 };

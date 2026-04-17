@@ -9,6 +9,10 @@ export const routes: Routes = [
     { path: 'experience', component: HomeComponent, data: { scrollTo: 'experience' }, title: 'Experience - Raymond Aheto' },
     { path: 'certs', component: HomeComponent, data: { scrollTo: 'certs' }, title: 'Certifications - Raymond Aheto' },
     { path: 'contact', component: HomeComponent, data: { scrollTo: 'contact' }, title: 'Contact - Raymond Aheto' },
+    {
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.routes').then((m) => m.adminRoutes),
+    },
     { path: '**', redirectTo: '' }
 ];
 

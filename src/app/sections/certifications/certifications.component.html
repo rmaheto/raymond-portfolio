@@ -12,7 +12,7 @@
       <ul class="space-y-4 text-slate-700 dark:text-slate-300">
         <li *ngFor="let c of certs.certs" class="flex items-center gap-4">
           <a *ngIf="c.link" [href]="c.link" target="_blank" rel="noopener">
-            <img [src]="c.badge" [alt]="c.name" class="w-16 h-16 rounded" />
+            <img [src]="c.badgeUrl" [alt]="c.name" class="w-16 h-16 rounded" />
           </a>
           <span>{{ c.name }}</span>
         </li>
