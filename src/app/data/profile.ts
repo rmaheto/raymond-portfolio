@@ -31,12 +31,14 @@ export const profile: {
   name: 'Raymond Aheto',
   title: 'SOFTWARE ENGINEER | JAVA | AWS CERTIFIED',
   blurb:
-    'Senior Software Engineer with 6+ years building scalable software using Java, Spring Boot and Angular. Strong in microservices, REST/SOAP APIs, and agile delivery — with hands-on DevOps on AWS and Jenkins.',
+    'Java backend engineer specializing in Spring Boot microservices, event-driven architecture, and AWS cloud solutions. I build systems that scale — from healthcare data pipelines to fleet management platforms. AWS Certified Solutions Architect.',
   avatar: '/assets/raymond.jpg',
-  aboutMe: `Senior Software Engineer with 6+ years of experience delivering scalable enterprise applications using Java (8–17), Spring Boot, and AWS. Skilled in designing, developing, and maintaining REST APIs, 
-            microservices, and messaging systems (Kafka, RabbitMQ) with Spring and Hibernate. Proven ability to modernize legacy platforms, build new features that enhance customer experience and accelerate 
-            product delivery, reduce costs, and improve system performance through cloud-native solutions.`,
-  resumeUrl: '/assets/Raymond_Aheto_Resume.pdf',
+  aboutMe: `I'm a backend-focused engineer who's spent 6+ years building systems that handle real load in high-stakes environments — healthcare data pipelines processing 100K+ daily transactions, fleet management platforms used by compliance teams, and enterprise integrations that replaced fragile SOAP services with clean REST APIs.
+
+Before moving fully into software engineering, I led IT operations for healthcare networks in Ghana. That experience shaped how I think about reliability and resilience — I've seen firsthand what it costs when systems go down. It's why I care about more than just shipping features: I care about uptime, observability, and building things that hold up under pressure.
+
+I work primarily in Java and Spring Boot, with strong experience in event-driven architecture (Kafka, RabbitMQ), AWS infrastructure, and microservices design. I'm at my best in roles where engineering decisions have measurable business impact.`,
+  resumeUrl: '/assets/Raymond_Aheto_Resume_V7.pdf',
   location: 'West Des Moines, IA',
 
   seo: {
@@ -78,6 +80,7 @@ export const skills = {
     'TypeScript',
     'HTML5 / CSS3',
     'JavaScript',
+    'Tailwind CSS',
     'Bootstrap',
     'jQuery',
     'AJAX',
@@ -92,18 +95,23 @@ export const skills = {
     'Microservices',
     'RESTful APIs',
     'SOAP',
+    'Kafka',
+    'RabbitMQ',
+    'Node.js',
     'Struts 2 (legacy)',
     'JUnit',
     'Mockito',
   ],
 
-  db: ['PostgreSQL', 'Oracle', 'MySQL', 'MS SQL Server'],
+  db: ['PostgreSQL', 'Oracle', 'MySQL', 'MS SQL Server', 'MongoDB', 'Redis'],
 
   // Platform, DevOps & tooling
   devops: [
     'AWS (Solutions Architect)',
+    'Terraform',
     'Jenkins (CI/CD)',
     'Docker',
+    'GitHub Actions',
     'OpenAPI / Swagger',
     'Postman',
     'Git / GitHub / Bitbucket',
@@ -198,24 +206,24 @@ export const experience = [
   {
     role: 'Software Engineer II',
     company:
-      'AEG, Inc (Employer) | Client: Enterprise Mobility, United States',
-    period: 'Jun 2022 – Present',
+      'AEG, Inc (Employer) | Client: Enterprise Mobility, St. Louis, MO',
+    period: 'Jun 2022 – Mar 2026',
     bullets: [
       'Modernized legacy SOAP services into secure, standards-based RESTful APIs using Spring Boot, improving interoperability',
       'Migrated Spring Batch workloads to AWS S3, reducing on-prem storage costs by 40% and boosting scalability',
       'Upgraded Java (8 to 17), Spring Boot (2.5 to 3.1), Spring MVC (4 to 5.3), enhancing reliability and reducing downtime by 30%.',
-      'Developed event-driven microservices with RabbitMQ and OAuth 2.0, enabling real-time processing and improvingthroughput by 30% ',
+      'Developed event-driven microservices with RabbitMQ and OAuth 2.0, enabling real-time processing and improving throughput by 30%',
       'Delivered new feature development, adding Vehicle Recall Audit functionality that improved compliance tracking and streamlined vehicle repair workflows in a fleet management application',
       'Collaborated with product teams to align sprint goals and user needs, reducing feature delivery time by 15%',
       'Resolved production incidents with Splunk log analysis and code fixes, ensuring SLA compliance.'
     ],
     stack:
-      'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Splunk, Angular, AWS, Microservices, JUnit, Mockito, Oracle, Splunk, IntelliJ, Swagger, Bitbucket, Jenkins, Jira, Apache Tomcat',
+      'Spring Boot, Spring Web, Spring Data JPA, Spring Batch, Spring Security, Hibernate, Struts2, JSP, Angular, AWS, Microservices, JUnit, Mockito, Oracle, IntelliJ, Swagger, Splunk, Bitbucket, Jenkins, Jira, Apache Tomcat',
   },
   {
-    role: 'Software Engineer/Operations Manager (Hybrid Role)',
+    role: 'Software Engineer',
     company: 'Infotech Dot Net Systems Ltd – Accra, Ghana',
-    period: '2018 – 2021',
+    period: 'Sep 2018 – Jul 2021',
     bullets: [
       'Designed and implemented RESTful APIs in Spring Boot to integrate EHR systems with third-party healthcare services',
       'Transformed healthcare monolithic applications into Spring Boot microservices with API Gateway and Eureka, improving scalability and system availability for patient services',
@@ -227,12 +235,12 @@ export const experience = [
 
     ],
     stack:
-      'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat, , OS Tickets',
+      'Spring Boot, Spring Web, Spring Data JPA, Spring Security, Kafka, Redis, Microservices, JUnit, Mockito, PostgreSQL, IntelliJ, Swagger, Slack, GitHub, Apache Tomcat',
   },
   {
     role: 'IT Manager',
     company: 'New Crystal Health Services Ltd – Accra, Ghana',
-    period: '2015 – 2018',
+    period: 'Jan 2015 – Aug 2018',
     bullets: [
       'Directed IT operations for a healthcare network, improving system uptime to 99.5% through proactive monitoring',
       'Led the development of a telemedicine platform and modernization of health information systems.',
@@ -243,7 +251,7 @@ export const experience = [
   {
     role: 'IT Manager',
     company: 'St. John of God Hospital – Duayaw Nkwanta, Ghana',
-    period: '2009 – 2014',
+    period: 'Nov 2009 – Dec 2014',
     bullets: [
       'Digitized health records, cutting data retrieval time by 40%, and led IT team to improve delivery by 35%',
       'Oversaw hospital-wide IT strategy, system upgrades, and rollout of health information systems.',
@@ -261,6 +269,11 @@ export const certifications = {
     },
   ],
   education: [
+    {
+      name: 'Doctor of Business Administration – Applied Computer Science (In Progress)',
+      school: 'Westcliff University, Dallas, TX',
+      years: 'Expected 2028',
+    },
     {
       name: 'Master of Science in Computer Science',
       school: 'Maharishi International University (MIU), Fairfield, IA, USA',
