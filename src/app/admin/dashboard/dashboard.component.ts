@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { PortfolioApiService } from '../../services/portfolio-api.service';
+import { ToastService } from '../../services/toast.service';
 import {
   PortfolioData,
   PortfolioProfile,
@@ -27,7 +28,6 @@ export class DashboardComponent implements OnInit {
   activeTab: Tab = 'profile';
   data: PortfolioData | null = null;
   saving = false;
-  message = '';
   resumeFile: File | null = null;
   uploadingResume = false;
   avatarFile: File | null = null;
@@ -58,7 +58,8 @@ export class DashboardComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private portfolioApi: PortfolioApiService,
-    private http: HttpClient
+    private http: HttpClient,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -72,7 +73,6 @@ export class DashboardComponent implements OnInit {
 
   setTab(tab: Tab) {
     this.activeTab = tab;
-    this.message = '';
   }
 
   logout() {
@@ -86,8 +86,8 @@ export class DashboardComponent implements OnInit {
     if (!this.profileDraft) return;
     this.saving = true;
     this.portfolioApi.updateProfile(this.profileDraft).subscribe({
-      next: () => { this.message = 'Profile saved.'; this.saving = false; },
-      error: () => { this.message = 'Save failed.'; this.saving = false; },
+      next: () => { this.toast.show({ type: 'success', title: 'Saved', message: 'Profile saved.' }); this.saving = false; },
+      error: () => { this.toast.show({ type: 'error', title: 'Error', message: 'Save failed.' }); this.saving = false; },
     });
   }
 
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
     const req = this.editingSkill.id
       ? this.http.put(url, this.editingSkill)
       : this.http.post(url, this.editingSkill);
-    req.subscribe({ next: () => { this.editingSkill = null; this.portfolioApi.reload(); this.message = 'Skill saved.'; } });
+    req.subscribe({ next: () => { this.editingSkill = null; this.portfolioApi.reload(); this.toast.show({ type: 'success', title: 'Saved', message: 'Skill saved.' }); } });
   }
 
   deleteSkill(skill: SkillEntry) {
@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit {
       bullets: this.editingExp.bullets.map((text, displayOrder) => ({ text, displayOrder })),
     };
     const req = this.editingExp.id ? this.http.put(url, payload) : this.http.post(url, payload);
-    req.subscribe({ next: () => { this.editingExp = null; this.portfolioApi.reload(); this.message = 'Experience saved.'; } });
+    req.subscribe({ next: () => { this.editingExp = null; this.portfolioApi.reload(); this.toast.show({ type: 'success', title: 'Saved', message: 'Experience saved.' }); } });
   }
 
   deleteExp(exp: ExperienceEntry) {
@@ -176,7 +176,7 @@ export class DashboardComponent implements OnInit {
       tags: this.editingProject.tags.map((tag, displayOrder) => ({ tag, displayOrder })),
     };
     const req = this.editingProject.id ? this.http.put(url, payload) : this.http.post(url, payload);
-    req.subscribe({ next: () => { this.editingProject = null; this.portfolioApi.reload(); this.message = 'Project saved.'; } });
+    req.subscribe({ next: () => { this.editingProject = null; this.portfolioApi.reload(); this.toast.show({ type: 'success', title: 'Saved', message: 'Project saved.' }); } });
   }
 
   deleteProject(p: ProjectEntry) {
@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
     if (!this.editingCert) return;
     const url = this.editingCert.id ? `/api/v1/admin/certifications/${this.editingCert.id}` : '/api/v1/admin/certifications';
     const req = this.editingCert.id ? this.http.put(url, this.editingCert) : this.http.post(url, this.editingCert);
-    req.subscribe({ next: () => { this.editingCert = null; this.portfolioApi.reload(); this.message = 'Certification saved.'; } });
+    req.subscribe({ next: () => { this.editingCert = null; this.portfolioApi.reload(); this.toast.show({ type: 'success', title: 'Saved', message: 'Certification saved.' }); } });
   }
 
   deleteCert(c: CertificationEntry) {
@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit {
     if (!this.editingEdu) return;
     const url = this.editingEdu.id ? `/api/v1/admin/education/${this.editingEdu.id}` : '/api/v1/admin/education';
     const req = this.editingEdu.id ? this.http.put(url, this.editingEdu) : this.http.post(url, this.editingEdu);
-    req.subscribe({ next: () => { this.editingEdu = null; this.portfolioApi.reload(); this.message = 'Education saved.'; } });
+    req.subscribe({ next: () => { this.editingEdu = null; this.portfolioApi.reload(); this.toast.show({ type: 'success', title: 'Saved', message: 'Education saved.' }); } });
   }
 
   deleteEdu(e: EducationEntry) {
@@ -252,14 +252,14 @@ export class DashboardComponent implements OnInit {
     this.uploadingAvatar = true;
     this.portfolioApi.uploadAvatar(this.avatarFile).subscribe({
       next: () => {
-        this.message = 'Profile picture updated.';
+        this.toast.show({ type: 'success', title: 'Saved', message: 'Profile picture updated.' });
         this.uploadingAvatar = false;
         this.avatarFile = null;
         this.avatarPreview = null;
         input.value = '';
       },
       error: (err) => {
-        this.message = err?.error || 'Avatar upload failed.';
+        this.toast.show({ type: 'error', title: 'Error', message: err?.error || 'Avatar upload failed.' });
         this.uploadingAvatar = false;
       },
     });
@@ -281,12 +281,12 @@ export class DashboardComponent implements OnInit {
     this.uploadingResume = true;
     this.portfolioApi.uploadResume(this.resumeFile).subscribe({
       next: (_url) => {
-        this.message = 'Resume uploaded successfully.';
+        this.toast.show({ type: 'success', title: 'Uploaded', message: 'Resume uploaded successfully.' });
         this.uploadingResume = false;
         this.resumeFile = null;
         input.value = '';
       },
-      error: () => { this.message = 'Upload failed.'; this.uploadingResume = false; },
+      error: () => { this.toast.show({ type: 'error', title: 'Error', message: 'Resume upload failed.' }); this.uploadingResume = false; },
     });
   }
 }
