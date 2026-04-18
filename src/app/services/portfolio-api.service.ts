@@ -36,4 +36,12 @@ export class PortfolioApiService {
       tap(() => this.reload())
     );
   }
+
+  uploadAvatar(file: File): Observable<string> {
+    const form = new FormData();
+    form.append('file', file);
+    return this.http.post('/api/v1/admin/avatar', form, { responseType: 'text' }).pipe(
+      tap(() => this.reload())
+    );
+  }
 }

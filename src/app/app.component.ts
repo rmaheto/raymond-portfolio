@@ -23,6 +23,7 @@ import type { PortfolioProfile } from './models/portfolio.model';
 export class AppComponent implements OnInit {
   p: PortfolioProfile | null = null;
   isDark = true;
+  isAdminRoute = false;
   currentYear = new Date().getFullYear();
   showBackToTop = false;
   scrollPercent = 0;
@@ -53,9 +54,11 @@ export class AppComponent implements OnInit {
       if (data) this.p = data.profile;
     });
     this.theme.isDark$.subscribe((v) => (this.isDark = v));
+    this.isAdminRoute = this.router.url.startsWith('/admin');
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
+        this.isAdminRoute = this.router.url.startsWith('/admin');
         const currentUrl = environment.canonicalBase + this.router.url;
         const existing = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
         if (existing) existing.setAttribute('href', currentUrl);

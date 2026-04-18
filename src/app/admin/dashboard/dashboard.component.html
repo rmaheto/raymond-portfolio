@@ -65,6 +65,56 @@
         </div>
       </div>
 
+      <!-- Avatar upload -->
+      <div class="md:col-span-2 mt-6 bg-slate-800 rounded-xl p-5">
+        <p class="text-sm font-medium text-slate-300 mb-4">Profile Picture</p>
+
+        <div class="flex items-center gap-5">
+          <!-- Current / preview -->
+          <div class="shrink-0">
+            <img *ngIf="avatarPreview || data?.profile?.avatarUrl"
+              [src]="avatarPreview || data?.profile?.avatarUrl"
+              alt="avatar preview"
+              class="w-20 h-20 rounded-full object-cover ring-2 ring-slate-600" />
+            <div *ngIf="!avatarPreview && !data?.profile?.avatarUrl"
+              class="w-20 h-20 rounded-full bg-slate-700 ring-2 ring-slate-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl text-slate-400">person</span>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex-1">
+            <input #avatarInput type="file" accept="image/jpeg,image/png,image/webp"
+              (change)="onAvatarSelected($event)" class="hidden" />
+
+            <div *ngIf="!avatarFile" class="flex items-center gap-3">
+              <button (click)="avatarInput.click()" type="button"
+                class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg transition">
+                Choose Photo
+              </button>
+              <span class="text-xs text-slate-500">JPG, PNG or WebP · max 2 MB</span>
+            </div>
+
+            <div *ngIf="avatarFile" class="flex flex-wrap items-center gap-3">
+              <div class="flex items-center gap-2 px-3 py-1.5 bg-slate-700 rounded-lg text-sm text-slate-200 max-w-[200px]">
+                <span class="truncate">{{ avatarFile.name }}</span>
+                <button (click)="clearAvatar(avatarInput)" type="button" class="text-slate-400 hover:text-white ml-1">✕</button>
+              </div>
+              <button (click)="uploadAvatar(avatarInput)" [disabled]="uploadingAvatar" type="button"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm rounded-lg transition">
+                {{ uploadingAvatar ? 'Uploading…' : 'Upload' }}
+              </button>
+              <button (click)="avatarInput.click()" type="button"
+                class="text-sm text-slate-400 hover:text-slate-200 transition underline underline-offset-2">
+                Change
+              </button>
+            </div>
+
+            <p *ngIf="avatarSizeError" class="mt-2 text-xs text-red-400">Image must be 2 MB or smaller.</p>
+          </div>
+        </div>
+      </div>
+
       <button (click)="saveProfile()" [disabled]="saving"
         class="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition">
         {{ saving ? 'Saving…' : 'Save Profile' }}
@@ -308,26 +358,48 @@
       <h2 class="text-xl font-semibold mb-6">Resume</h2>
 
       <div class="bg-slate-800 rounded-xl p-6 mb-6">
-        <p class="text-sm text-slate-400 mb-1">Current resume URL</p>
+        <p class="text-sm text-slate-400 mb-1">Current resume</p>
         <a *ngIf="data?.profile?.resumeUrl" [href]="data!.profile.resumeUrl" target="_blank"
-          class="text-blue-400 hover:text-blue-300 text-sm break-all">
-          {{ data?.profile?.resumeUrl }}
+          class="text-blue-400 hover:text-blue-300 text-sm">
+          {{ data?.profile?.resumeFileName || data?.profile?.resumeUrl }}
         </a>
         <p *ngIf="!data?.profile?.resumeUrl" class="text-slate-500 text-sm">No resume set.</p>
       </div>
 
       <div class="bg-slate-800 rounded-xl p-6">
         <h3 class="font-medium mb-4">Upload new resume (PDF)</h3>
-        <input type="file" accept=".pdf" (change)="onResumeSelected($event)"
-          class="block text-sm text-slate-400 mb-4
-                 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
-                 file:text-sm file:font-medium file:bg-blue-600 file:text-white
-                 hover:file:bg-blue-700 cursor-pointer" />
-        <button (click)="uploadResume()" [disabled]="!resumeFile || uploadingResume"
-          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition">
-          {{ uploadingResume ? 'Uploading…' : 'Upload to S3' }}
-        </button>
-        <p *ngIf="resumeFile" class="mt-2 text-xs text-slate-400">Selected: {{ resumeFile.name }}</p>
+
+        <!-- Hidden native file input -->
+        <input #resumeInput type="file" accept=".pdf" (change)="onResumeSelected($event)" class="hidden" />
+
+        <!-- No file chosen: show Choose File only -->
+        <div *ngIf="!resumeFile" class="flex items-center gap-3">
+          <button (click)="resumeInput.click()" type="button"
+            class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
+            Choose File
+          </button>
+        </div>
+
+        <!-- File chosen: show pill + Upload + Change -->
+        <div *ngIf="resumeFile" class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 px-3 py-1.5 bg-slate-700 rounded-lg text-sm text-slate-200 max-w-xs">
+            <svg class="w-4 h-4 shrink-0 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7.414A2 2 0 0017.414 6L14 2.586A2 2 0 0012.586 2H4zm8 1.5V6a1 1 0 001 1h2.5L12 3.5zM6 10a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h4a1 1 0 100-2H7z"/>
+            </svg>
+            <span class="truncate">{{ resumeFile.name }}</span>
+            <button (click)="clearResume(resumeInput)" type="button" class="text-slate-400 hover:text-white ml-1">✕</button>
+          </div>
+
+          <button (click)="uploadResume(resumeInput)" [disabled]="uploadingResume" type="button"
+            class="px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition">
+            {{ uploadingResume ? 'Uploading…' : 'Upload to S3' }}
+          </button>
+
+          <button (click)="resumeInput.click()" type="button"
+            class="text-sm text-slate-400 hover:text-slate-200 transition underline underline-offset-2">
+            Change
+          </button>
+        </div>
       </div>
     </section>
 

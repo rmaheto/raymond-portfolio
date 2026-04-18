@@ -30,6 +30,10 @@ export class DashboardComponent implements OnInit {
   message = '';
   resumeFile: File | null = null;
   uploadingResume = false;
+  avatarFile: File | null = null;
+  avatarPreview: string | null = null;
+  uploadingAvatar = false;
+  avatarSizeError = false;
 
   // Editing state
   profileDraft: PortfolioProfile | null = null;
@@ -218,16 +222,70 @@ export class DashboardComponent implements OnInit {
 
   // ── Resume ────────────────────────────────────────────────────────────────
 
-  onResumeSelected(event: Event) {
+  onAvatarSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.resumeFile = input.files?.[0] ?? null;
+    const file = input.files?.[0];
+    if (!file) return;
+    this.avatarSizeError = false;
+    if (file.size > 2 * 1024 * 1024) {
+      this.avatarSizeError = true;
+      this.avatarFile = null;
+      this.avatarPreview = null;
+      input.value = '';
+      return;
+    }
+    this.avatarFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => (this.avatarPreview = e.target?.result as string);
+    reader.readAsDataURL(file);
   }
 
-  uploadResume() {
+  clearAvatar(input: HTMLInputElement) {
+    this.avatarFile = null;
+    this.avatarPreview = null;
+    this.avatarSizeError = false;
+    input.value = '';
+  }
+
+  uploadAvatar(input: HTMLInputElement) {
+    if (!this.avatarFile) return;
+    this.uploadingAvatar = true;
+    this.portfolioApi.uploadAvatar(this.avatarFile).subscribe({
+      next: () => {
+        this.message = 'Profile picture updated.';
+        this.uploadingAvatar = false;
+        this.avatarFile = null;
+        this.avatarPreview = null;
+        input.value = '';
+      },
+      error: (err) => {
+        this.message = err?.error || 'Avatar upload failed.';
+        this.uploadingAvatar = false;
+      },
+    });
+  }
+
+  onResumeSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (file) this.resumeFile = file;
+  }
+
+  clearResume(input: HTMLInputElement) {
+    this.resumeFile = null;
+    input.value = '';
+  }
+
+  uploadResume(input: HTMLInputElement) {
     if (!this.resumeFile) return;
     this.uploadingResume = true;
     this.portfolioApi.uploadResume(this.resumeFile).subscribe({
-      next: (url) => { this.message = 'Resume uploaded: ' + url; this.uploadingResume = false; this.resumeFile = null; },
+      next: (_url) => {
+        this.message = 'Resume uploaded successfully.';
+        this.uploadingResume = false;
+        this.resumeFile = null;
+        input.value = '';
+      },
       error: () => { this.message = 'Upload failed.'; this.uploadingResume = false; },
     });
   }

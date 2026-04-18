@@ -1,8 +1,12 @@
 <section *ngIf="p" class="section container-xl py-12 mb-12 text-center font-sans
          bg-[radial-gradient(1200px_600px_at_50%_-160px,rgba(255,255,255,0.08),transparent)]">
     <!-- Avatar -->
-    <img [src]="p.avatarUrl" alt="avatar"
+    <img *ngIf="p.avatarUrl" [src]="p.avatarUrl" alt="avatar"
         class="w-28 h-28 rounded-full object-cover ring-4 ring-white/[0.10] shadow-xl mx-auto mb-6" />
+    <div *ngIf="!p.avatarUrl"
+        class="w-28 h-28 rounded-full bg-slate-700 ring-4 ring-white/[0.10] shadow-xl mx-auto mb-6 flex items-center justify-center">
+      <span class="material-symbols-outlined text-5xl text-slate-400">person</span>
+    </div>
 
     <!-- Name -->
     <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">

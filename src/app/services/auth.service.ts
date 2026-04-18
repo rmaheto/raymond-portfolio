@@ -7,14 +7,22 @@ interface LoginResponse {
   expiresAt: number;
 }
 
+interface CodeSentResponse {
+  message: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly TOKEN_KEY = 'admin_token';
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('/api/v1/auth/login', { username, password }).pipe(
+  login(username: string, password: string): Observable<CodeSentResponse> {
+    return this.http.post<CodeSentResponse>('/api/v1/auth/login', { username, password });
+  }
+
+  verifyCode(username: string, code: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>('/api/v1/auth/verify', { username, code }).pipe(
       tap((res) => localStorage.setItem(this.TOKEN_KEY, res.token))
     );
   }
@@ -28,7 +36,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const token = this.getToken();
-    return !!token;
+    return !!this.getToken();
   }
 }

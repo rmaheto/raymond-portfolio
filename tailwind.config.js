@@ -4,20 +4,73 @@ export default {
   content: ["./src/**/*.{html,ts,css,scss}"],
   theme: {
     extend: {
-    fontFamily: {
+      colors: {
+        "surface": "#0b1326",
+        "primary-fixed-dim": "#adc6ff",
+        "primary-fixed": "#d8e2ff",
+        "error-container": "#93000a",
+        "surface-container-highest": "#2d3449",
+        "on-surface-variant": "#c3c6d7",
+        "inverse-surface": "#dae2fd",
+        "primary-container": "#0f69dc",
+        "surface-dim": "#0b1326",
+        "secondary-container": "#00a572",
+        "on-secondary-container": "#00311f",
+        "secondary": "#4edea3",
+        "on-background": "#dae2fd",
+        "surface-variant": "#2d3449",
+        "outline": "#8d90a0",
+        "secondary-fixed": "#6ffbbe",
+        "on-tertiary-container": "#ffede6",
+        "inverse-primary": "#005ac2",
+        "on-primary-fixed-variant": "#004395",
+        "on-secondary": "#003824",
+        "on-primary-container": "#ecf0ff",
+        "on-primary": "#002e6a",
+        "surface-container-low": "#131b2e",
+        "surface-container-high": "#222a3d",
+        "primary": "#adc6ff",
+        "secondary-fixed-dim": "#4edea3",
+        "tertiary": "#ffb596",
+        "tertiary-container": "#bc4800",
+        "surface-container-lowest": "#060e20",
+        "outline-variant": "#434655",
+        "on-error-container": "#ffdad6",
+        "error": "#ffb4ab",
+        "surface-tint": "#adc6ff",
+        "on-error": "#690005",
+        "inverse-on-surface": "#283044",
+        "tertiary-fixed": "#ffdbcd",
+        "on-surface": "#dae2fd",
+        "surface-container": "#171f33",
+        "surface-bright": "#31394d",
+        "on-tertiary": "#581e00",
+        "on-primary-fixed": "#001a42",
+        "background": "#0b1326",
+      },
+      fontFamily: {
         sans: ['Inter', 'Geist Sans', 'ui-sans-serif', 'system-ui'],
         mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular'],
-        logo: ['Pacifico', 'cursive']
+        logo: ['Pacifico', 'cursive'],
+        headline: ['Manrope', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        label: ['Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        DEFAULT: "0.125rem",
+        lg: "0.25rem",
+        xl: "0.5rem",
+        full: "0.75rem",
       },
       fontSize: {
-        '5xl': ['48px', { lineHeight: '1.1' }],  // Main name
-        '3xl': ['30px', { lineHeight: '1.2' }],  // Section headings
-        '2xl': ['24px', { lineHeight: '1.3' }],  // Job title
-        xl: ['20px', { lineHeight: '1.4' }],     // Subsection headings
-        lg: ['18px', { lineHeight: '1.5' }],     // Intro paragraphs
-        base: ['16px', { lineHeight: '1.6' }],   // Body
-        sm: ['14px', { lineHeight: '1.5' }],     // Small text
-        xs: ['12px', { lineHeight: '1.4' }]      // Tiny tags
+        '5xl': ['48px', { lineHeight: '1.1' }],
+        '3xl': ['30px', { lineHeight: '1.2' }],
+        '2xl': ['24px', { lineHeight: '1.3' }],
+        xl: ['20px', { lineHeight: '1.4' }],
+        lg: ['18px', { lineHeight: '1.5' }],
+        base: ['16px', { lineHeight: '1.6' }],
+        sm: ['14px', { lineHeight: '1.5' }],
+        xs: ['12px', { lineHeight: '1.4' }],
       },
       boxShadow: {
         "brand-sm": "0 6px 20px rgba(74,91,255,.35)",

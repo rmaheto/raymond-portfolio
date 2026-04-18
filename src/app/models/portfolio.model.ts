@@ -6,6 +6,7 @@ export interface PortfolioProfile {
   avatarUrl: string;
   aboutMe: string;
   resumeUrl: string;
+  resumeFileName?: string;
   location: string;
   contactIntro: string;
   footerText: string;
