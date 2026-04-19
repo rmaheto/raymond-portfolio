@@ -55,6 +55,7 @@ export default {
         headline: ['Manrope', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         label: ['Inter', 'sans-serif'],
+        jbmono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
         DEFAULT: "0.125rem",

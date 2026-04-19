@@ -1,53 +1,53 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Type } from '@angular/core';
+import { NgComponentOutlet, AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AboutComponent } from '../sections/about/about.component';
-import { HeroComponent } from '../sections/hero/hero.component';
-import { CertificationsComponent } from '../sections/certifications/certifications.component';
-import { ContactComponent } from '../sections/contact/contact.component';
-import { ExperienceComponent } from '../sections/experience/experience.component';
-import { ProjectsComponent } from '../sections/projects/projects.component';
-import { SkillsComponent } from '../sections/skills/skills.component';
-import { ThemeService } from '../services/theme.service';
-import type { Subscription } from 'rxjs';
+import { PortfolioApiService } from '../services/portfolio-api.service';
+import { Observable } from 'rxjs';
+import { map, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    HeroComponent,
-    AboutComponent,
-    SkillsComponent,
-    ProjectsComponent,
-    ExperienceComponent,
-    CertificationsComponent,
-    ContactComponent,
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  imports: [NgComponentOutlet, AsyncPipe],
+  template: `<ng-container *ngComponentOutlet="activeTheme$ | async"></ng-container>`,
 })
-export class HomeComponent implements AfterViewInit {
-  isDark = false;
-  private sub?: Subscription;
+export class HomeComponent implements AfterViewInit, OnDestroy {
+  activeTheme$: Observable<Type<unknown> | null>;
 
-  constructor(private route: ActivatedRoute, public theme: ThemeService) {
-    this.isDark = this.theme.isDark;
-    this.sub = this.theme.isDark$.subscribe((v) => (this.isDark = v));
+  constructor(
+    private route: ActivatedRoute,
+    private portfolioApi: PortfolioApiService
+  ) {
+    this.activeTheme$ = this.portfolioApi.portfolio$.pipe(
+      map((data) => data?.profile?.activeTheme ?? 'modern'),
+      distinctUntilChanged(),
+      switchMap((theme) => this.loadTheme(theme))
+    );
   }
 
   ngAfterViewInit() {
     this.route.data.subscribe((data) => {
       if (data['scrollTo']) {
         setTimeout(() => {
-          const el = document.getElementById(data['scrollTo']);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
+          document.getElementById(data['scrollTo'])?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
       }
     });
   }
 
-  ngOnDestroy() {
-    this.sub?.unsubscribe();
+  private async loadTheme(theme: string): Promise<Type<unknown>> {
+    switch (theme) {
+      case 'terminal': {
+        const { TerminalThemeComponent } = await import('../themes/terminal/terminal-theme.component');
+        return TerminalThemeComponent;
+      }
+      case 'modern':
+      default: {
+        const { ModernThemeComponent } = await import('../themes/modern/modern-theme.component');
+        return ModernThemeComponent;
+      }
+    }
   }
+
+  ngOnDestroy() {}
 }

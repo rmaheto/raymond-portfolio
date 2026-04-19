@@ -119,6 +119,17 @@
         </div>
       </div>
 
+      <!-- Theme picker -->
+      <div class="mt-6 bg-slate-800 rounded-xl p-5">
+        <p class="text-sm font-medium text-slate-300 mb-3">Active Theme</p>
+        <select [(ngModel)]="profileDraft['activeTheme']" name="activeTheme"
+          class="w-full max-w-xs px-3 py-2 bg-slate-700 rounded-lg border border-slate-600 text-sm text-white focus:outline-none focus:border-blue-500">
+          <option value="modern">Modern</option>
+          <option value="terminal">Terminal</option>
+        </select>
+        <p class="mt-2 text-xs text-slate-500">More themes coming soon. Changes take effect after Save Profile.</p>
+      </div>
+
       <button (click)="saveProfile()" [disabled]="saving"
         class="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition">
         {{ saving ? 'Saving…' : 'Save Profile' }}

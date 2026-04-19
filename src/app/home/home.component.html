@@ -1,7 +1,1 @@
-<app-hero></app-hero>
-<app-about [isDark]="isDark"></app-about>
-<app-skills [isDark]="isDark"></app-skills>
-<app-projects [isDark]="isDark"></app-projects>
-<app-experience [isDark]="isDark"></app-experience>
-<app-certifications [isDark]="isDark"></app-certifications>
-<app-contact [isDark]="isDark"></app-contact>
+<ng-container *ngComponentOutlet="activeTheme$ | async"></ng-container>

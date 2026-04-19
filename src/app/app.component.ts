@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
   p: PortfolioProfile | null = null;
   isDark = true;
   isAdminRoute = false;
+  hideGlobalShell = false;
+  private readonly selfNavThemes = new Set(['terminal']);
   currentYear = new Date().getFullYear();
   showBackToTop = false;
   scrollPercent = 0;
@@ -51,7 +53,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.portfolioApi.portfolio$.subscribe((data) => {
-      if (data) this.p = data.profile;
+      if (data) {
+        this.p = data.profile;
+        this.hideGlobalShell = !this.isAdminRoute && this.selfNavThemes.has(data.profile.activeTheme ?? 'modern');
+      }
     });
     this.theme.isDark$.subscribe((v) => (this.isDark = v));
     this.isAdminRoute = this.router.url.startsWith('/admin');
@@ -59,6 +64,7 @@ export class AppComponent implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.isAdminRoute = this.router.url.startsWith('/admin');
+        this.hideGlobalShell = !this.isAdminRoute && this.selfNavThemes.has(this.p?.activeTheme ?? 'modern');
         const currentUrl = environment.canonicalBase + this.router.url;
         const existing = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
         if (existing) existing.setAttribute('href', currentUrl);
