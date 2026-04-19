@@ -1,0 +1,319 @@
+<div class="text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen bg-white dark:bg-slate-950">
+
+  <!-- ── NAV ───────────────────────────────────────────────────────────── -->
+  <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <button (click)="scrollTo('about')" class="text-indigo-500 font-jbmono font-bold text-xl hover:text-indigo-400 transition-colors">{{ initials }}</button>
+
+      <div class="hidden md:flex gap-8 font-jbmono text-sm uppercase tracking-widest">
+        <button (click)="scrollTo('about')" class="hover:text-indigo-500 transition-colors">ABOUT</button>
+        <button (click)="scrollTo('skills')" class="hover:text-indigo-500 transition-colors">SKILLS</button>
+        <button (click)="scrollTo('projects')" class="hover:text-indigo-500 transition-colors">PROJECTS</button>
+        <button (click)="scrollTo('experience')" class="hover:text-indigo-500 transition-colors">EXPERIENCE</button>
+        <button (click)="scrollTo('contact')" class="hover:text-indigo-500 transition-colors text-indigo-500 font-bold">CONTACT</button>
+      </div>
+
+      <button (click)="toggleDark()" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <span *ngIf="!isDark" class="material-symbols-outlined">dark_mode</span>
+        <span *ngIf="isDark" class="material-symbols-outlined text-yellow-400">light_mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <ng-container *ngIf="data">
+
+    <!-- ── HERO ──────────────────────────────────────────────────────────── -->
+    <header class="pt-32 pb-20 px-6 max-w-6xl mx-auto" id="about">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+
+        <!-- Text -->
+        <div class="flex-1 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-xs font-jbmono">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+            AVAILABLE FOR NEW CHALLENGES
+          </div>
+
+          <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight">
+            {{ firstName }}&nbsp;<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-blue-500 to-pink-500">{{ lastName }}</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium">{{ data.profile.title }}</p>
+          <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{{ data.profile.blurb }}</p>
+
+          <div class="flex flex-wrap gap-4 pt-4">
+            <a *ngIf="data.profile.resumeUrl" [href]="data.profile.resumeUrl" target="_blank"
+              class="inline-flex items-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold transition-all hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]">
+              <span class="material-symbols-outlined text-sm">download</span>
+              Download CV
+            </a>
+            <button (click)="scrollTo('projects')"
+              class="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-bold border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+              <span class="material-symbols-outlined text-sm">visibility</span>
+              View Projects
+            </button>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="relative group shrink-0">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative w-64 h-64 md:w-72 md:h-72 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 bg-slate-900 shadow-2xl">
+            <img *ngIf="data.profile.avatarUrl" [src]="data.profile.avatarUrl" alt="Profile Photo"
+              class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500" />
+            <div *ngIf="!data.profile.avatarUrl" class="w-full h-full flex items-center justify-center bg-slate-800">
+              <span class="material-symbols-outlined text-7xl text-slate-500">person</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ── SKILLS ─────────────────────────────────────────────────────────── -->
+    <section class="py-20 px-6 bg-slate-50 dark:bg-slate-900/50" id="skills">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-4 mb-12">
+          <h2 class="text-3xl font-bold">Technical Ecosystem</h2>
+          <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+          <span class="font-jbmono text-indigo-500 text-sm">01. SKILLS</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div *ngFor="let group of skillGroups"
+            class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 transition-colors"
+            [ngClass]="group.borderHover">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined" [ngClass]="group.iconColor">{{ group.icon }}</span>
+              <h3 class="font-bold text-lg">{{ group.label }}</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let skill of skills(group.key)"
+                class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs font-jbmono text-slate-600 dark:text-slate-400 transition-colors"
+                [ngClass]="group.pillHover">
+                {{ skill }}
+              </span>
+              <span *ngIf="skills(group.key).length === 0" class="text-xs text-slate-400 font-jbmono">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ───────────────────────────────────────────────────────── -->
+    <section class="py-20 px-6 max-w-6xl mx-auto" id="projects">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="font-jbmono text-indigo-500 text-sm">02. WORK</span>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+        <h2 class="text-3xl font-bold">Featured Projects</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div *ngFor="let project of data.projects; let i = index"
+          class="group relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+          <div class="h-48 flex items-center justify-center"
+            [ngClass]="i % 2 === 0 ? 'bg-gradient-to-br from-indigo-500/20 to-blue-500/20' : 'bg-gradient-to-br from-pink-500/20 to-indigo-500/20'">
+            <span class="material-symbols-outlined text-6xl opacity-40 group-hover:scale-110 transition-transform"
+              [ngClass]="i % 2 === 0 ? 'text-indigo-500' : 'text-pink-500'">work</span>
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-bold mb-3 transition-colors"
+              [ngClass]="i % 2 === 0 ? 'group-hover:text-indigo-500' : 'group-hover:text-pink-500'">
+              {{ project.name }}
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">{{ project.description }}</p>
+            <div class="flex flex-wrap gap-2 font-jbmono text-[10px]">
+              <span *ngFor="let tag of project.tags"
+                class="px-2 py-1 rounded border uppercase"
+                [ngClass]="i % 2 === 0 ? 'bg-indigo-500/5 text-indigo-500 border-indigo-500/20' : 'bg-pink-500/5 text-pink-500 border-pink-500/20'">
+                {{ tag }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="data.projects.length === 0" class="text-slate-400 font-jbmono text-sm mt-4">No projects added yet.</p>
+    </section>
+
+    <!-- ── EXPERIENCE ─────────────────────────────────────────────────────── -->
+    <section class="py-20 px-6 bg-slate-50 dark:bg-slate-900/50" id="experience">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center gap-4 mb-16">
+          <h2 class="text-3xl font-bold">Professional Journey</h2>
+          <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+          <span class="font-jbmono text-indigo-500 text-sm">03. EXPERIENCE</span>
+        </div>
+
+        <div class="relative">
+          <!-- Desktop center spine -->
+          <div class="hidden md:block absolute left-1/2 top-0 h-full w-px bg-slate-200 dark:bg-slate-800 -translate-x-1/2 z-0"></div>
+          <!-- Mobile left spine -->
+          <div class="md:hidden absolute left-3 top-0 h-full w-px bg-slate-200 dark:bg-slate-800"></div>
+
+          <div class="space-y-16">
+            <div *ngFor="let exp of data.experience; let i = index"
+              class="relative flex flex-col md:flex-row md:items-center md:justify-between group"
+              [ngClass]="i % 2 !== 0 ? 'md:flex-row-reverse' : ''">
+
+              <!-- Mobile dot -->
+              <div class="md:hidden absolute left-3 top-2 w-3 h-3 rounded-full border-2 border-slate-50 dark:border-slate-900 -translate-x-1/2 z-10"
+                [ngClass]="accent(i).dot"></div>
+
+              <!-- Desktop dot: horizontally + vertically centered -->
+              <div class="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-4 border-slate-50 dark:border-slate-900 z-10 group-hover:scale-125 transition-transform"
+                [ngClass]="accent(i).dot"></div>
+
+              <!-- Date + role + company -->
+              <div class="pl-8 md:pl-0 md:w-[44%] mb-4 md:mb-0"
+                [ngClass]="i % 2 === 0 ? 'md:text-right' : 'md:text-left'">
+                <span class="font-jbmono text-xs font-bold mb-2 block uppercase tracking-widest"
+                  [ngClass]="accent(i).period">{{ exp.period }}</span>
+                <h3 class="text-xl font-bold">{{ exp.role }}</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-jbmono mt-1">{{ exp.company }}</p>
+              </div>
+
+              <!-- Bullets -->
+              <div class="pl-8 md:pl-0 md:w-[44%]">
+                <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 leading-relaxed">
+                  <li *ngFor="let bullet of exp.bullets"
+                    class="flex items-start gap-3"
+                    [ngClass]="i % 2 !== 0 ? 'md:flex-row-reverse' : ''">
+                    <span [ngClass]="accent(i).bullet" class="shrink-0 leading-5 mt-0.5">▹</span>
+                    <span class="flex-1 text-justify">{{ bullet }}</span>
+                  </li>
+                </ul>
+                <div *ngIf="stackPills(exp.stack).length" class="mt-3 flex flex-wrap gap-2">
+                  <span *ngFor="let pill of stackPills(exp.stack)"
+                    class="px-2 py-1 text-[10px] font-jbmono rounded-full border bg-indigo-500/5 text-indigo-500 border-indigo-500/20">
+                    {{ pill }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CERTIFICATIONS ─────────────────────────────────────────────────── -->
+    <section *ngIf="data.certifications?.length" class="py-16 px-6 max-w-6xl mx-auto" id="certs">
+      <div class="flex items-center gap-4 mb-10">
+        <span class="font-jbmono text-emerald-500 text-sm">04. CERTS</span>
+        <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+        <h2 class="text-3xl font-bold">Certifications</h2>
+      </div>
+      <div class="flex flex-wrap gap-4">
+        <a *ngFor="let cert of data.certifications" [href]="cert.link || '#'" target="_blank" rel="noopener"
+          class="group flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-emerald-500/50 transition-all">
+          <img *ngIf="cert.badgeUrl" [src]="cert.badgeUrl" [alt]="cert.name" class="w-10 h-10 object-contain" />
+          <span class="font-medium text-sm group-hover:text-emerald-500 transition-colors">{{ cert.name }}</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ────────────────────────────────────────────────────────── -->
+    <section class="py-24 px-6 max-w-4xl mx-auto" id="contact">
+      <div class="text-center mb-16 space-y-4">
+        <span class="font-jbmono text-indigo-500 text-sm font-bold tracking-widest uppercase">05. CONTACT</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold">Get In Touch</h2>
+        <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">{{ data.profile.contactIntro }}</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none"></div>
+        <form #contactFormEl="ngForm" (ngSubmit)="sendMessage(contactFormEl)" class="space-y-6 relative z-10">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-xs font-jbmono font-bold text-slate-500 uppercase tracking-widest">Your Name</label>
+              <input type="text" name="name" ngModel required #nameField="ngModel" placeholder="John Doe"
+                class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+                [class.border-red-400]="nameField.invalid && (nameField.touched || contactFormEl.submitted)" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-jbmono font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+              <input type="email" name="email" ngModel required email #emailField="ngModel" placeholder="you@example.com"
+                class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+                [class.border-red-400]="emailField.invalid && (emailField.touched || contactFormEl.submitted)" />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-jbmono font-bold text-slate-500 uppercase tracking-widest">Subject</label>
+            <input type="text" name="subject" ngModel required #subjectField="ngModel" placeholder="Subject"
+              class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none"
+              [class.border-red-400]="subjectField.invalid && (subjectField.touched || contactFormEl.submitted)" />
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-jbmono font-bold text-slate-500 uppercase tracking-widest">Message</label>
+            <textarea name="message" ngModel required minlength="10" #messageField="ngModel" rows="5"
+              placeholder="Let's build something amazing together..."
+              class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none resize-none"
+              [class.border-red-400]="messageField.invalid && (messageField.touched || contactFormEl.submitted)"></textarea>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div class="flex justify-center">
+            <ng-container *ngIf="isDark; else lightCaptcha">
+              <re-captcha [siteKey]="siteKey" theme="dark" (resolved)="onResolved($event)"></re-captcha>
+            </ng-container>
+            <ng-template #lightCaptcha>
+              <re-captcha [siteKey]="siteKey" theme="light" (resolved)="onResolved($event)"></re-captcha>
+            </ng-template>
+          </div>
+
+          <button type="submit" [disabled]="sending || !captchaToken"
+            class="group w-full py-4 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] active:scale-[0.98] flex items-center justify-center gap-3">
+            <span *ngIf="!sending">Send Message</span>
+            <ng-container *ngIf="sending">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <span>Submitting…</span>
+            </ng-container>
+            <span *ngIf="!sending" class="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">send</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+    <footer class="py-12 border-t border-slate-200 dark:border-slate-800 text-center space-y-6">
+      <div class="flex justify-center gap-8">
+        <a *ngIf="data.profile.linkedin" [href]="data.profile.linkedin" target="_blank" rel="noopener"
+          class="text-slate-400 hover:text-indigo-500 transition-colors font-jbmono text-xs">LinkedIn</a>
+        <a *ngIf="data.profile.github" [href]="data.profile.github" target="_blank" rel="noopener"
+          class="text-slate-400 hover:text-indigo-500 transition-colors font-jbmono text-xs">GitHub</a>
+        <a *ngIf="data.profile.xHandle" [href]="data.profile.xHandle" target="_blank" rel="noopener"
+          class="text-slate-400 hover:text-indigo-500 transition-colors font-jbmono text-xs">X / Twitter</a>
+        <a *ngIf="data.profile.facebook" [href]="data.profile.facebook" target="_blank" rel="noopener"
+          class="text-slate-400 hover:text-indigo-500 transition-colors font-jbmono text-xs">Facebook</a>
+        <a *ngIf="data.profile.instagram" [href]="data.profile.instagram" target="_blank" rel="noopener"
+          class="text-slate-400 hover:text-indigo-500 transition-colors font-jbmono text-xs">Instagram</a>
+      </div>
+      <p class="text-slate-500 text-sm font-jbmono">
+        {{ data.profile.footerText || 'Designed &amp; Built by ' + data.profile.name }} &copy; {{ currentYear }}
+      </p>
+    </footer>
+
+  </ng-container>
+
+  <!-- ── FIXED TERMINAL WIDGET ─────────────────────────────────────────── -->
+  <div class="fixed bottom-6 right-6 hidden md:block pointer-events-none select-none z-40">
+    <div class="bg-slate-950 text-emerald-400 p-3 rounded-lg border border-slate-800 shadow-2xl font-jbmono text-[10px] w-48 opacity-40 hover:opacity-95 transition-opacity pointer-events-auto cursor-default">
+      <div class="flex gap-1 mb-2">
+        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+      </div>
+      <p class="text-slate-500">$ uptime</p>
+      <p>100.0% RELIABILITY</p>
+      <p class="text-slate-500">$ status</p>
+      <p class="text-blue-400">SYSTEMS NOMINAL</p>
+    </div>
+  </div>
+
+</div>
